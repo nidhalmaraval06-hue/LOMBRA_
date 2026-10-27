@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080609">
+<title>LOMBRA // THE LEGENDS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+  --bg:#080609;--bg2:#0d0a0e;--panel:rgba(20,14,19,.86);
+  --panel2:#171017;--red:#ed2344;--red2:#ff526b;--red-dark:#741027;
+  --text:#f7f0f3;--muted:#92838c;--line:rgba(255,255,255,.075);
+  --green:#45e3a6;--gold:#e9bd72;--radius:17px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;color:var(--text);font-family:'Cairo',sans-serif;
+  background:radial-gradient(ellipse at 80% 0%,rgba(158,10,39,.18),transparent 35%),
+  radial-gradient(ellipse at 5% 75%,rgba(102,6,29,.11),transparent 32%),
+  linear-gradient(145deg,#080609,#0c090d 60%,#080609);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:45px 45px;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none!important}
+.layout{min-height:100vh}
+.sidebar{
+  position:fixed;z-index:50;right:0;top:0;bottom:0;width:258px;
+  padding:22px 17px;display:flex;flex-direction:column;
+  background:rgba(11,8,11,.94);backdrop-filter:blur(24px);
+  border-left:1px solid var(--line);box-shadow:-18px 0 55px rgba(0,0,0,.15);overflow:auto;
+}
+.brand{display:flex;align-items:center;gap:12px;padding:7px 8px 24px;border-bottom:1px solid var(--line)}
+.logo-wrap{
+  width:51px;height:51px;flex-shrink:0;border-radius:15px;display:grid;place-items:center;overflow:hidden;
+  background:linear-gradient(140deg,#32101b,#130c11);border:1px solid rgba(255,65,91,.27);
+  box-shadow:0 0 27px rgba(237,35,68,.12)
+}
+.logo-wrap img{width:100%;height:100%;object-fit:contain}
+.brand-name{font:900 18px 'Orbitron',sans-serif;letter-spacing:1px}
+.brand-name span{color:var(--red2)}
+.brand-sub{font:9px 'Orbitron',sans-serif;letter-spacing:2px;color:#95818b;margin-top:7px}
+.side-caption{font:9px 'Orbitron',sans-serif;letter-spacing:2px;color:#66535d;padding:24px 12px 11px}
+.nav{display:grid;gap:5px}
+.nav button{
+  position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:right;
+  color:#a99aa2;background:transparent;border:1px solid transparent;border-radius:11px;
+  padding:12px 13px;font-size:12px;transition:background .2s,border .2s,color .2s,transform .2s
+}
+.nav button i{width:18px;text-align:center;font-size:14px}
+.nav button:hover{background:rgba(255,255,255,.035);color:white;transform:translateX(-2px)}
+.nav button.active{
+  color:white;border-color:rgba(237,35,68,.2);
+  background:linear-gradient(100deg,rgba(237,35,68,.16),rgba(237,35,68,.025));
+  box-shadow:inset -3px 0 var(--red)
+}
+.nav button.active i{color:var(--red2)}
+.nav-count{margin-right:auto;background:rgba(237,35,68,.14);color:#ff8092;border-radius:7px;padding:2px 6px;font-size:9px}
+.side-bottom{margin-top:auto;padding-top:22px}
+.connection{border:1px solid var(--line);border-radius:13px;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008))}
+.connection-head{display:flex;justify-content:space-between;align-items:center;font-size:10px}
+.online-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:7px;box-shadow:0 0 12px rgba(69,227,166,.7)}
+.connection small{display:block;color:var(--muted);font-size:9px;margin-top:9px}
+.store-entry-button{width:100%;display:flex;align-items:center;gap:10px;text-align:right;padding:12px 13px;margin-top:8px;border:1px solid rgba(237,23,55,.42);border-radius:10px;background:linear-gradient(110deg,rgba(122,0,28,.34),rgba(20,9,15,.88));color:#f0eae0;font-family:inherit;font-size:12px;font-weight:700;box-shadow:inset 0 0 20px rgba(237,23,55,.04);transition:transform .2s,border-color .2s,box-shadow .2s}
+.store-entry-button i{color:#ff3654}
+.store-entry-button:hover{transform:translateX(-2px);border-color:#ff1744;box-shadow:0 0 20px rgba(255,23,68,.16)}
+
+.store-launch-overlay{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:radial-gradient(ellipse at center,rgba(100,0,24,.45),rgba(3,3,5,.98) 65%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s ease,visibility .16s ease}
+.store-launch-overlay.active{opacity:1;visibility:visible;pointer-events:auto}
+.store-launch-content{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:24px}
+.store-launch-logo{width:118px;height:118px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,23,68,.7));animation:storeLaunchGlitch .28s steps(2,end) infinite,storeLaunchPulse .65s ease-in-out infinite alternate}
+.store-launch-title{font:900 18px Orbitron,Cairo,sans-serif;letter-spacing:3px;color:#f0eae0;text-shadow:3px 0 #ff1744,-3px 0 #00eaff}
+.store-launch-sub{font:800 10px Orbitron,Cairo,sans-serif;letter-spacing:3px;color:#b89a65}
+.store-launch-line{width:min(280px,72vw);height:2px;background:#251019;overflow:hidden}
+.store-launch-line:after{content:"";display:block;width:38%;height:100%;background:#ff1744;box-shadow:0 0 18px #ff1744;animation:storeLaunchLoad .6s linear infinite}
+@keyframes storeLaunchGlitch{0%,100%{transform:translate(0);clip-path:inset(0);filter:drop-shadow(0 0 12px rgba(255,23,68,.7))}20%{transform:translate(-7px,2px) skew(-7deg);clip-path:inset(18% 0 62%);filter:drop-shadow(7px 0 #ff1744) drop-shadow(-7px 0 #00eaff)}45%{transform:translate(6px,-2px) skew(4deg);clip-path:inset(60% 0 12%)}70%{transform:translate(-3px,1px);clip-path:inset(35% 0 42%);filter:drop-shadow(-5px 0 #ff1744) drop-shadow(5px 0 #00eaff)}}
+@keyframes storeLaunchPulse{from{opacity:.76;transform:scale(.97)}to{opacity:1;transform:scale(1.04)}}
+@keyframes storeLaunchLoad{from{transform:translateX(-180%)}to{transform:translateX(360%)}}
+@media(prefers-reduced-motion:reduce){.store-launch-logo,.store-launch-line:after{animation:none!important}}
+
+.logout{width:100%;margin-top:11px;padding:11px;border:1px solid transparent;border-radius:10px;background:transparent;color:#a99aa2;text-align:right;font-size:11px}
+.logout:hover{background:rgba(237,35,68,.08);border-color:rgba(237,35,68,.18);color:#ff8294}
+.main{margin-right:258px;padding:25px 30px 45px;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}
+.crumb{font-size:11px;color:var(--muted)}
+.crumb b{color:#f7e9ef}
+.top-right{display:flex;align-items:center;gap:9px}
+.icon-button{width:41px;height:41px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;color:#d9cbd2;background:rgba(255,255,255,.025)}
+.icon-button:hover{border-color:rgba(237,35,68,.3);color:white}
+.mobile-toggle{display:none}
+.profile{display:flex;align-items:center;gap:10px;padding:5px 11px;background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:12px}
+.avatar{width:35px;height:35px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(145deg,#8d142c,#ef2849);color:white;font-weight:900;box-shadow:0 4px 17px rgba(237,35,68,.2)}
+.profile-name{font-size:11px;font-weight:800}
+.profile-role{font-size:9px;color:var(--red2);margin-top:2px}
+.page{display:none;animation:enter .3s ease}
+.page.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{
+  position:relative;overflow:hidden;isolation:isolate;min-height:220px;
+  border:1px solid rgba(255,58,87,.22);border-radius:22px;padding:29px;
+  background:radial-gradient(ellipse at 5% 90%,rgba(237,35,68,.19),transparent 42%),
+  linear-gradient(112deg,rgba(48,10,23,.88),rgba(18,12,17,.96) 54%,rgba(34,9,17,.88));margin-bottom:20px
+}
+.hero:before{content:"";position:absolute;z-index:-1;left:-65px;top:-110px;width:320px;height:320px;border-radius:50%;border:1px solid rgba(255,82,107,.13);box-shadow:0 0 0 25px rgba(255,82,107,.018),0 0 0 55px rgba(255,82,107,.014)}
+.hero:after{content:"LOMBRA";position:absolute;z-index:-1;left:20px;bottom:6px;font:900 clamp(45px,7vw,105px) 'Orbitron',sans-serif;letter-spacing:-5px;color:rgba(255,255,255,.025);white-space:nowrap}
+.eyebrow{display:flex;align-items:center;gap:9px;font:9px 'Orbitron',sans-serif;letter-spacing:2px;color:#ff7287;margin-bottom:16px}
+.eyebrow:before{content:"";width:24px;height:1px;background:var(--red2)}
+.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.hero h1{font-size:clamp(24px,3.4vw,39px);font-weight:900;line-height:1.5;margin:0}
+.hero h1 span{color:var(--red2);text-shadow:0 0 30px rgba(237,35,68,.19)}
+.hero p{font-size:12px;color:#b9a9b2;max-width:620px;line-height:2.1;margin:9px 0 0}
+.hero-stamp{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.13);border-radius:10px;padding:10px 13px;color:#c2aab4;font:9px 'Orbitron',sans-serif;letter-spacing:1px}
+.hero-stamp strong{display:block;color:#fff;font-size:12px;margin-top:7px}
+.page-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin:7px 0 20px}
+.page-heading h2{font-size:23px;font-weight:900;margin:0}
+.page-heading p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(237,35,68,.22);background:rgba(237,35,68,.075);color:#ff8093;padding:7px 11px;border-radius:8px;font:9px 'Orbitron',sans-serif;letter-spacing:.5px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:19px}
+.stat{position:relative;isolation:isolate;overflow:hidden;min-width:0;padding:18px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(28,19,26,.92),rgba(14,11,14,.97));transition:transform .22s,border-color .22s}
+.stat:hover{transform:translateY(-3px);border-color:rgba(237,35,68,.24)}
+.stat:after{content:"";position:absolute;z-index:-1;width:110px;height:110px;left:-45px;bottom:-57px;border-radius:50%;background:rgba(237,35,68,.065);filter:blur(3px)}
+.stat-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stat-label{font-size:11px;color:#b6a6af}
+.stat-icon{width:39px;height:39px;display:grid;place-items:center;border:1px solid rgba(237,35,68,.16);background:rgba(237,35,68,.09);border-radius:12px;color:var(--red2)}
+.stat-value{font:800 30px 'Orbitron',sans-serif;letter-spacing:-1px;margin-top:18px}
+.stat-foot{font-size:10px;color:var(--muted);margin-top:9px}
+.content-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(250px,.75fr);gap:16px;margin-bottom:17px}
+.panel{min-width:0;border:1px solid var(--line);border-radius:16px;padding:20px;background:linear-gradient(145deg,rgba(23,16,22,.92),rgba(14,11,14,.94));box-shadow:0 8px 35px rgba(0,0,0,.08)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}
+.panel-head h3{font-size:13px;font-weight:800;margin:0}
+.panel-head h3 i{color:var(--red2);margin-left:8px}
+.panel-head small{font:9px 'Orbitron',sans-serif;color:#7e6c76;letter-spacing:1px}
+.quick-list{display:grid;gap:9px}
+.quick-item{width:100%;display:flex;align-items:center;gap:12px;text-align:right;padding:12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.014);color:inherit;transition:.2s}
+.quick-item:hover{border-color:rgba(237,35,68,.3);background:rgba(237,35,68,.04);transform:translateX(-2px)}
+.quick-icon{width:39px;height:39px;flex-shrink:0;display:grid;place-items:center;border-radius:11px;background:rgba(237,35,68,.09);color:var(--red2)}
+.quick-item strong{display:block;font-size:11px}
+.quick-item small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.quick-arrow{margin-right:auto;color:#766670;font-size:10px}
+.identity{text-align:center;padding:9px 5px}
+.emblem{width:92px;height:92px;margin:0 auto 17px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,82,107,.38);background:radial-gradient(circle,rgba(237,35,68,.14),rgba(237,35,68,.015) 68%);color:var(--red2);font-size:32px;box-shadow:0 0 0 9px rgba(237,35,68,.025),0 0 35px rgba(237,35,68,.09)}
+.identity h3{font-size:19px;margin:0;font-weight:900}
+.identity p{font-size:10px;color:var(--muted);margin:5px 0}
+.identity .pill{margin-top:10px}
+.identity-separator{height:1px;background:var(--line);margin:22px 0}
+.identity-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:7px;font-size:9px;font-weight:800}
+.badge-green{color:var(--green);background:rgba(69,227,166,.09);border:1px solid rgba(69,227,166,.12)}
+.badge-red{color:#ff8195;background:rgba(237,35,68,.1);border:1px solid rgba(237,35,68,.14)}
+.badge-gold{color:var(--gold);background:rgba(233,189,114,.09);border:1px solid rgba(233,189,114,.14)}
+.badge-muted{color:#c0b2ba;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+.table-wrap{width:100%;overflow:auto;border:1px solid var(--line);border-radius:11px}
+table{border-collapse:collapse;width:100%;min-width:510px}
+th{background:rgba(255,255,255,.025);color:#a999a2;font-size:10px;text-align:right;padding:14px 13px;font-weight:700;white-space:nowrap}
+td{padding:13px;border-top:1px solid var(--line);font-size:11px;color:#e5d9df;vertical-align:middle}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(255,255,255,.018)}
+.empty{text-align:center!important;color:var(--muted)!important;padding:27px!important}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{display:grid;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;color:#bbaab3}
+.field input,.field select,.field textarea{width:100%;min-width:0;color:#fff;background:#0b080b;border:1px solid #30212a;border-radius:10px;padding:12px;outline:none;font-size:12px;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(237,35,68,.07)}
+.field input::placeholder,.field textarea::placeholder{color:#665761}
+.field textarea{min-height:95px;resize:vertical}
+.field select option{background:#110d11}
+.permission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.permission{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.012);color:#c8b9c1;font-size:11px}
+.permission input{accent-color:var(--red);width:15px;height:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:9px;padding:11px 15px;font-size:11px;font-weight:800;transition:.2s}
+.btn-primary{color:white;background:linear-gradient(130deg,#a8102d,#f12a4b);box-shadow:0 5px 20px rgba(237,35,68,.12)}
+.btn-primary:hover{filter:brightness(1.13);transform:translateY(-1px)}
+.btn-secondary{color:#d8c8d0;background:#191218;border-color:var(--line)}
+.btn-secondary:hover{border-color:rgba(237,35,68,.27);color:white}
+.btn-danger{color:#ff8798;background:rgba(237,35,68,.08);border-color:rgba(237,35,68,.22)}
+.btn-danger:hover{background:rgba(237,35,68,.15)}
+.btn-small{font-size:10px;padding:7px 9px}
+.form-actions{display:flex;gap:9px;justify-content:flex-start;flex-wrap:wrap;margin-top:17px}
+.notice{border:1px solid var(--line);border-radius:11px;padding:13px;font-size:11px;line-height:2;color:#bcaab3;margin-bottom:16px}
+.notice.red{background:rgba(237,35,68,.035);border-color:rgba(237,35,68,.16)}
+.toast{position:fixed;left:22px;bottom:22px;z-index:100;max-width:min(430px,calc(100vw - 32px));padding:14px 17px;border:1px solid rgba(255,82,107,.3);border-radius:12px;background:rgba(22,14,20,.97);box-shadow:0 15px 55px #0008;font-size:12px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;backdrop-filter:blur(20px)}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.error{border-color:#e52344}
+.loading{padding:25px;text-align:center;color:var(--muted);font-size:11px}
+.loading i{color:var(--red2);margin-left:8px}
+.footer-note{text-align:center;color:#51444c;font:9px 'Orbitron',sans-serif;letter-spacing:1.5px;padding:27px 0 0}
+.product-icon{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;border-radius:10px;background:linear-gradient(145deg,rgba(237,35,68,.16),rgba(237,35,68,.035));border:1px solid rgba(237,35,68,.15);color:var(--red2)}
+.product-name-cell{display:flex;align-items:center;gap:11px;min-width:155px}
+.product-name-cell strong{display:block;font-size:11px}
+.product-name-cell small{display:block;font-size:9px;color:var(--muted);margin-top:4px}
+.price-input{width:125px;max-width:100%;padding:9px 10px;background:#0b080b;color:#fff;border:1px solid #49303b;border-radius:8px;outline:none;direction:ltr;text-align:right}
+.price-input:focus{border-color:var(--red2);box-shadow:0 0 0 3px rgba(237,35,68,.08)}
+.price-input:disabled{opacity:.55}
+.price-label{color:var(--gold);font:700 11px 'Orbitron',sans-serif;white-space:nowrap}
+@media(min-width:1500px){.main{padding-left:40px;padding-right:40px}.stats{gap:17px}.stat{padding:22px}}
+@media(max-width:1120px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .sidebar{width:270px;transform:translateX(110%);transition:transform .25s;box-shadow:-20px 0 70px #0009}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-right:0;padding:17px 13px 30px}
+  .mobile-toggle{display:grid}.topbar{margin-bottom:20px}.profile{padding:4px 6px}
+  .hero{padding:23px 17px;min-height:unset}.hero-stamp{margin-top:8px}
+  .hero:after{font-size:48px;letter-spacing:-3px}
+  .stats{gap:9px}.stat{padding:13px}.stat-icon{width:32px;height:32px}
+  .stat-value{font-size:22px;margin-top:13px}.stat-label{font-size:10px}.stat-foot{font-size:9px}
+  .panel{padding:15px}.form-grid,.permission-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}.page-heading h2{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="shortcut icon" type="image/png" href="/logo.png">
+</head>
+
+<body>
+<div class="store-launch-overlay" id="storeLaunchOverlay" aria-hidden="true">
+ <div class="store-launch-content">
+  <img class="store-launch-logo" src="logo.png" alt="LOMBRA" onerror="this.style.opacity='.15'">
+  <div class="store-launch-title">LOMBRA // STORE</div>
+  <div class="store-launch-sub">INITIALIZING SECURE ACCESS</div>
+  <div class="store-launch-line"></div>
+ </div>
+</div>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo-wrap"><img src="logo.png" alt="LOMBRA" onerror="this.style.display='none'"></div>
+    <div><div class="brand-name">LOM<span>BRA</span></div><div class="brand-sub">THE LEGENDS</div></div>
+  </div>
+
+  <div class="side-caption">MAIN COMMAND</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="overview"><i class="fa-solid fa-house"></i> مركز القيادة</button>
+    <button data-page="members" data-permission="membersAccess"><i class="fa-solid fa-users"></i> أعضاء LOMBRA</button>
+    <button data-page="invitations" data-permission="manageInvitations"><i class="fa-solid fa-ticket"></i> أكواد الدعوة</button>
+    <button data-page="store-orders" data-permission="manageOrders"><i class="fa-solid fa-receipt"></i> إدارة الطلبات <span class="nav-count">ORDERS</span></button>
+    <button data-page="store-products" data-permission="storeProductsAccess"><i class="fa-solid fa-tags"></i> أسعار المتجر</button>
+    <button data-page="store-groups" data-permission="manageStoreGroups"><i class="fa-solid fa-key"></i> أكواد المافيا والجانج</button>
+    <button type="button" class="store-entry-button" onclick="openStoreAccess()"><i class="fa-solid fa-store"></i> دخول المتجر <span class="nav-count">STORE</span></button>
+    <button data-page="warnings"><i class="fa-solid fa-triangle-exclamation"></i> التحذيرات</button>
+    <button data-page="absences"><i class="fa-solid fa-calendar-xmark"></i> طلبات الغياب</button>
+    <button data-page="blacklist" data-permission="manageBlacklist"><i class="fa-solid fa-user-lock"></i> القائمة السوداء</button>
+    <button data-page="meetings" data-permission="manageMeetings"><i class="fa-solid fa-calendar-days"></i> الاجتماعات</button>
+    <button data-page="audit" data-permission="viewAuditLogs"><i class="fa-solid fa-clipboard-list"></i> سجل الأحداث</button>
+  </nav>
+
+  <div class="side-bottom">
+    <div class="connection">
+      <div class="connection-head"><span><i class="online-dot"></i> حالة الواجهة</span><b style="color:var(--green)">ONLINE</b></div>
+      <small>LOMBRA INTERNAL SYSTEM</small>
+    </div>
+    <button class="logout" id="logout"><i class="fa-solid fa-right-from-bracket" style="margin-left:9px"></i> تسجيل الخروج</button>
+  </div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="icon-button mobile-toggle" id="menuToggle" aria-label="القائمة"><i class="fa-solid fa-bars"></i></button>
+    <div class="crumb">LOMBRA <span style="color:var(--red2)">/</span> <b id="crumb">مركز القيادة</b></div>
+  </div>
+  <div class="top-right">
+    <button class="icon-button" id="refresh" title="تحديث"><i class="fa-solid fa-arrows-rotate"></i></button>
+    <div class="profile">
+      <div class="avatar" id="avatar">L</div>
+      <div><div class="profile-name" id="profileName">LOMBRA USER</div><div class="profile-role" id="profileRole">LOADING</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="page active" id="page-overview">
+  <div class="hero">
+    <div class="eyebrow">PRIVATE NETWORK // AUTHORIZED ACCESS</div>
+    <div class="hero-bottom">
+      <div>
+        <h1>مرحباً بك في<br><span>LOMBRA</span></h1>
+        <p>مركز القيادة الداخلي لمنظمة LOMBRA. راقب الأعضاء والإجراءات الإدارية من واجهة واحدة وفق صلاحيات حسابك.</p>
+      </div>
+      <div class="hero-stamp">SYSTEM STATUS<strong><i class="fa-solid fa-shield-halved" style="color:var(--red2);margin-left:7px"></i> PRIVATE ACCESS</strong></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-top"><span class="stat-label">الحسابات</span><span class="stat-icon"><i class="fa-solid fa-users"></i></span></div><div class="stat-value" id="statAccounts">—</div><div class="stat-foot">الأعضاء المسجلون في النظام</div></div>
+    <div class="stat"><div class="stat-top"><span class="stat-label">التحذيرات</span><span class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></span></div><div class="stat-value" id="statWarnings">—</div><div class="stat-foot">السجلات المتاحة للحساب</div></div>
+    <div class="stat"><div class="stat-top"><span class="stat-label">طلبات الغياب المعلّقة</span><span class="stat-icon"><i class="fa-solid fa-calendar-xmark"></i></span></div><div class="stat-value" id="statAbsences">—</div><div class="stat-foot">طلبات تحتاج إلى مراجعة</div></div>
+    <div class="stat"><div class="stat-top"><span class="stat-label">الاجتماعات</span><span class="stat-icon"><i class="fa-solid fa-calendar-days"></i></span></div><div class="stat-value" id="statMeetings">—</div><div class="stat-foot">الاجتماعات المسجلة</div></div>
+  </div>
+
+  <div class="content-grid">
+    <div class="panel">
+      <div class="panel-head"><h3><i class="fa-solid fa-bolt"></i> الوصول السريع</h3><small>QUICK COMMANDS</small></div>
+      <div class="quick-list">
+        <button class="quick-item" data-goto="members" data-permission="viewAllMembers"><span class="quick-icon"><i class="fa-solid fa-users"></i></span><span><strong>أعضاء LOMBRA</strong><small>عرض هوية الأعضاء وإدارة الرتب والصلاحيات</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></button>
+        <button class="quick-item" data-goto="store-products" data-permission="storeProductsAccess"><span class="quick-icon"><i class="fa-solid fa-tags"></i></span><span><strong>أسعار المتجر</strong><small>إدارة أسعار منتجات LOMBRA STORE</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></button>
+        <button class="quick-item" data-goto="warnings"><span class="quick-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><span><strong>مركز التحذيرات</strong><small>تسجيل ومراجعة التحذيرات الإدارية</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></button>
+        <button class="quick-item" data-goto="absences"><span class="quick-icon"><i class="fa-solid fa-calendar-xmark"></i></span><span><strong>طلبات الغياب</strong><small>قبول الطلبات أو رفضها</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></button>
+        <button class="quick-item" data-goto="meetings" data-permission="manageMeetings"><span class="quick-icon"><i class="fa-solid fa-calendar-days"></i></span><span><strong>إدارة الاجتماعات</strong><small>إضافة المواعيد والتفاصيل</small></span><i class="fa-solid fa-chevron-left quick-arrow"></i></button>
+      </div>
+    </div>
+    <div class="panel identity">
+      <div class="emblem"><i class="fa-solid fa-crown"></i></div>
+      <h3 id="welcomeName">LOMBRA</h3>
+      <p>هوية الحساب الحالي</p>
+      <span class="pill" id="welcomeRole">LOADING</span>
+      <div class="identity-separator"></div>
+      <div class="identity-line"><span style="color:var(--muted)">حالة الواجهة</span><span class="badge badge-green"><i class="fa-solid fa-circle" style="font-size:6px"></i> متصلة</span></div>
+      <p style="line-height:2;margin-top:15px">كل صلاحية يتم التحقق منها على الخادم أيضًا. الواجهة لا تمنح صلاحيات إضافية للحساب.</p>
+    </div>
+  </div>
+  <div class="panel" data-boss-only style="margin-top:17px;border-color:rgba(255,40,75,.35)">
+    <div class="panel-head"><h3><i class="fa-solid fa-trash-can"></i> صيانة سجل الأحداث</h3><span class="pill">BOSS ONLY</span></div>
+    <p style="color:var(--muted);line-height:1.9;margin-bottom:12px">حذف نهائي لجميع سجلات الأحداث المخزنة في قاعدة البيانات. العملية لا يمكن التراجع عنها ولا تحذف الأعضاء أو الطلبات أو التحذيرات.</p>
+    <button class="btn btn-danger" id="clearAuditLogsBtn" type="button"><i class="fa-solid fa-trash-can"></i> حذف سجل الأحداث نهائيًا</button>
+  </div>
+  <div class="footer-note">LOMBRA • THE LEGENDS • FIVE M RP</div>
+</section>
+
+<!-- قسم إدارة أسعار المتجر مع رفع الصور -->
+<section class="page" id="page-store-products">
+  <div class="page-heading">
+    <div><h2>إدارة أسعار المتجر</h2><p>أضف المنتجات بالصور وحدد أسعارها لتظهر في قاعدة بيانات LOMBRA.</p></div>
+    <span class="pill">LOMBRA STORE // PRICE CONTROL</span>
+  </div>
+
+  <div class="notice red">
+    <i class="fa-solid fa-shield-halved" style="color:var(--red2);margin-left:7px"></i>
+    أضف المنتجات هنا مع صورها لتظهر مباشرة في المتجر لجميع أكواد المافيا والجانج.
+  </div>
+
+  <div class="panel" style="margin-bottom:17px">
+    <div class="panel-head">
+      <h3><i class="fa-solid fa-circle-plus"></i> إضافة منتج جديد مع الصورة</h3>
+      <span class="pill">GLOBAL PRODUCT</span>
+    </div>
+    <form id="globalProductForm" data-product-manager-only>
+      <div class="form-grid">
+        <div class="field">
+          <label for="globalProductName">اسم المنتج *</label>
+          <input id="globalProductName" maxlength="100" required placeholder="اكتب اسم المنتج">
+        </div>
+        <div class="field">
+          <label for="globalProductPrice">السعر الأساسي (RP) *</label>
+          <input id="globalProductPrice" type="number" min="0" max="1000000000" step="1" value="0" required>
+        </div>
+        <div class="field full">
+          <label for="globalProductImage">صورة المنتج من جهازك *</label>
+          <input id="globalProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif" required>
+          <small style="display:block;color:var(--muted);margin-top:6px">اختر صورة PNG أو JPG أو WEBP أو GIF، بحجم أقصى 3.5MB.</small>
+          <div id="globalProductPreviewWrap" style="display:none;margin-top:10px">
+            <img id="globalProductPreview" alt="معاينة صورة المنتج" style="max-width:160px;max-height:130px;object-fit:contain;border-radius:10px;border:1px solid var(--border);background:#080608;padding:5px">
+          </div>
+        </div>
+        <div class="field full">
+          <label for="globalProductDescription">وصف المنتج (اختياري)</label>
+          <textarea id="globalProductDescription" maxlength="500" placeholder="وصف مختصر للمنتج..."></textarea>
+        </div>
+      </div>
+      <div class="form-actions" style="margin-top:14px">
+        <button class="btn btn-primary" type="submit" id="addGlobalProductBtn"><i class="fa-solid fa-plus"></i> إضافة المنتج للمتجر</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h3><i class="fa-solid fa-tags"></i> قائمة المنتجات</h3>
+      <button class="btn btn-secondary btn-small" id="refreshStoreProducts" type="button">
+        <i class="fa-solid fa-rotate"></i> تحديث المنتجات
+      </button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>المنتج</th>
+            <th>السعر الحالي</th>
+            <th>السعر الجديد</th>
+            <th>آخر تحديث</th>
+            <th>الإجراء</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody id="storeProductsTable">
+          <tr><td colspan="6" class="empty">افتح هذا القسم لتحميل المنتجات.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer-note">STORE PRICE CONTROL • SERVER DATABASE</div>
+  </div>
+</section>
+
+<!-- قسم أكواد المافيا والجانج والتحكم بمنتجات كل مجموعة بشكل خاص -->
+<section class="page" id="page-store-groups">
+ <div class="page-heading"><div><h2>أكواد دخول المافيا والجانج</h2><p>كل مجموعة يمكن تخصيص أسعار ومنتجات خاصة بها.</p></div><span class="pill">GROUP ACCESS CONTROL</span></div>
+ <div class="panel" style="margin-bottom:17px"><div class="panel-head"><h3><i class="fa-solid fa-key"></i> إنشاء مجموعة وكودها</h3><span class="pill">GROUP ADMIN</span></div>
+  <form id="groupCodeForm"><div class="form-grid">
+   <div class="field"><label for="groupCodeName">اسم المافيا / الجانج</label><input id="groupCodeName" required minlength="2" maxlength="60" placeholder="LOMBRA"></div>
+   <div class="field"><label for="groupCodeType">نوع المجموعة</label><select id="groupCodeType"><option value="MAFIA">MAFIA</option><option value="GANG">GANG</option></select></div>
+   <div class="field full"><label for="groupCodeValue">كود الدعوة الخاص بالمجموعة</label><input id="groupCodeValue" required minlength="4" maxlength="100" dir="ltr" placeholder="LOMBRA-742"></div>
+  </div><div class="form-actions"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> إنشاء كود المجموعة</button></div></form>
+ </div>
+ <div class="panel" style="margin-bottom:17px"><div class="panel-head"><h3><i class="fa-solid fa-users"></i> المجموعات المسجلة</h3><button class="btn btn-secondary btn-small" id="refreshStoreGroups" type="button">تحديث</button></div>
+ <div class="table-wrap"><table><thead><tr><th>المجموعة</th><th>النوع</th><th>الكود (آخر 4)</th><th>الحالة</th><th>تعديل الكود</th><th>الأسعار والمنتجات الخاصة</th><th>حذف</th></tr></thead><tbody id="storeGroupsTable"><tr><td colspan="7" class="empty">جارٍ التحميل...</td></tr></tbody></table></div></div>
+ <div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-tags"></i> قائمة المنتجات والأسعار الخاصة بالمجموعة المحددة</h3></div>
+  <div class="field"><label for="groupPriceSelect">اختار المجموعة</label><select id="groupPriceSelect"><option value="">اختار مجموعة أولاً</option></select></div>
+  <div class="table-wrap"><table><thead><tr><th>المنتج</th><th>السعر الخاص</th><th>الخصم %</th><th>السعر النهائي</th><th>حفظ</th></tr></thead><tbody id="groupPricesTable"><tr><td colspan="5" class="empty">اختار مجموعة لعرض أسعارها الخاصة.</td></tr></tbody></table></div>
+ </div>
+</section>
+
+<section class="page" id="page-invitations">
+  <div class="page-heading"><div><h2>مولّد أكواد دعوة أعضاء LOMBRA</h2><p>أنشئ كودًا لمرة واحدة لربط حساب عضو جديد عبر Discord.</p></div><span class="pill">INVITATION CONTROL</span></div>
+  <div class="notice red"><i class="fa-solid fa-shield-halved" style="color:var(--red2);margin-left:7px"></i> الأكواد صالحة للاستعمال مرة واحدة. انسخ الكود عند إنشائه؛ وبعد استعماله سيظهر بجانب اسم العضو. كل عضو جديد يُنشأ برتبة MEMBER.</div>
+  <div class="panel" style="margin-bottom:17px">
+    <div class="panel-head"><h3><i class="fa-solid fa-ticket"></i> إنشاء كود جديد</h3><span class="pill">INVITATION ADMIN</span></div>
+    <p style="color:var(--muted);font-size:11px;line-height:2">يمكنك كتابة كود دعوة خاصًا أو توليد كود عشوائي. يُستخدم هذا الكود عند دخول العضو الجديد، وصالح لاستعمال واحد فقط.</p>
+    <div class="form-grid" style="margin-top:12px">
+      <div class="field"><label for="customInviteCode">كود مخصص</label><input id="customInviteCode" dir="ltr" autocomplete="off" maxlength="37" placeholder="LOMBRA-MAFIA2026"></div>
+    </div>
+    <div class="form-actions" style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" id="createCustomInviteBtn" type="button"><i class="fa-solid fa-pen-to-square"></i> إنشاء الكود المكتوب</button><button class="btn btn-secondary" id="generateInviteBtn" type="button"><i class="fa-solid fa-wand-magic-sparkles"></i> توليد كود عشوائي</button></div>
+    <div id="newInviteResult" class="hidden" style="margin-top:17px;padding:15px;border:1px solid rgba(69,227,166,.25);border-radius:12px;background:rgba(69,227,166,.045)">
+      <div style="color:var(--green);font-size:11px;margin-bottom:9px"><i class="fa-solid fa-circle-check"></i> تم إنشاء كود الدعوة</div>
+      <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><code id="newInviteCode" dir="ltr" style="font:800 15px 'Orbitron',monospace;letter-spacing:1px;color:#fff;overflow-wrap:anywhere"></code><button class="btn btn-secondary btn-small" id="copyInviteBtn" type="button"><i class="fa-regular fa-copy"></i> نسخ الكود</button></div>
+      <small style="display:block;color:var(--muted);margin-top:10px">أرسل هذا الكود للعضو المقصود فقط. بعد استعماله سيظهر الكود بجانب اسم العضو في قائمة الأعضاء.</small>
+    </div>
+  </div>
+  <div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-clock-rotate-left"></i> الدعوات المستعملة</h3><button class="btn btn-secondary btn-small" id="refreshInvitesBtn" type="button"><i class="fa-solid fa-rotate"></i> تحديث</button></div>
+    <div class="table-wrap"><table><thead><tr><th>كود الدعوة المستعمل</th><th>اسم العضو</th><th>تاريخ الاستعمال</th></tr></thead><tbody id="usedInvitesTable"><tr><td colspan="3" class="empty">جارٍ التحميل...</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<!-- قسم أعضاء LOMBRA مع تفعيل أو تعطيل الحالة -->
+<section class="page" id="page-members">
+  <div class="page-heading">
+    <div><h2>أعضاء LOMBRA</h2><p>اضغط على اسم العضو لعرض هويته وتعديل رتبته وصلاحياته، أو تفعيل وإلغاء تنشيط حسابه.</p></div>
+    <span class="pill">LOMBRA MEMBER CONTROL</span>
+  </div>
+  <div class="notice red"><i class="fa-solid fa-shield-halved" style="color:var(--red2);margin-left:7px"></i> إدارة الرتب وتنشيط أو تعطيل الحسابات متاحة للمصرح لهم.</div>
+  <div class="panel">
+    <div class="panel-head">
+      <h3><i class="fa-solid fa-users"></i> قائمة الأعضاء</h3>
+      <button class="btn btn-secondary btn-small" data-action="members" type="button"><i class="fa-solid fa-rotate"></i> تحديث</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Discord</th>
+            <th>Discord ID</th>
+            <th>اسم LOMBRA</th>
+            <th>الرتبة</th>
+            <th>عدد الـ WARNs</th>
+            <th>كود الدعوة</th>
+            <th>الحالة</th>
+            <th>الإجراء (تنشيط / إقصاء)</th>
+          </tr>
+        </thead>
+        <tbody id="membersTable">
+          <tr><td colspan="8" class="empty">جارٍ تحميل الأعضاء...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-store-orders">
+  <div class="page-heading"><div><h2>إدارة الطلبات</h2><p>الطلبات المحفوظة فعليًا في قاعدة بيانات SQLite.</p></div><span class="pill">LOMBRA STORE // ORDER CONTROL</span></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-top"><span class="stat-label">كل الطلبات</span><span class="stat-icon"><i class="fa-solid fa-receipt"></i></span></div><div class="stat-value" id="ordersTotalCount">—</div><div class="stat-foot">الطلبات المسجلة</div></div>
+    <div class="stat"><div class="stat-top"><span class="stat-label">قيد المراجعة</span><span class="stat-icon"><i class="fa-solid fa-clock"></i></span></div><div class="stat-value" id="ordersPendingCount">—</div><div class="stat-foot">تحتاج إلى مراجعة</div></div>
+    <div class="stat"><div class="stat-top"><span class="stat-label">مكتملة</span><span class="stat-icon"><i class="fa-solid fa-circle-check"></i></span></div><div class="stat-value" id="ordersCompletedCount">—</div><div class="stat-foot">الطلبات المكتملة</div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-list-check"></i> الطلبات الواردة</h3><button class="btn btn-secondary btn-small" id="refreshStoreOrders" type="button"><i class="fa-solid fa-rotate"></i> تحديث</button></div>
+    <div class="table-wrap"><table><thead><tr><th>رقم الطلب</th><th>الزبون</th><th>Discord</th><th>المنتجات</th><th>المجموع</th><th>التاريخ</th><th>الحالة</th><th>تحديث الحالة</th><th>حذف</th></tr></thead>
+    <tbody id="storeOrdersTable"><tr><td colspan="9" class="empty">افتح هذا القسم لتحميل الطلبات.</td></tr></tbody></table></div>
+    <div class="footer-note">ORDER CONTROL • SQLITE DATABASE • ADMIN ACCESS ONLY</div>
+  </div>
+</section>
+
+<section class="page" id="page-blacklist">
+  <div class="page-heading"><div><h2>القائمة السوداء</h2><p>الأعضاء المقصيون بعد 3 WARNs أو بقرار إداري. استرجاع العضو محصور في BOSS.</p></div><span class="pill">BLACKLIST CONTROL</span></div>
+  <div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-user-lock"></i> الأعضاء في BLACKLIST</h3><button class="btn btn-secondary btn-small" data-action="blacklist">تحديث</button></div><div class="table-wrap"><table><thead><tr><th>العضو</th><th>الرتبة</th><th>عدد WARN (آخر 30 يومًا)</th><th>السبب</th><th>تاريخ الإقصاء</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="blacklistTable"><tr><td colspan="7" class="empty">افتح القسم لتحميل القائمة السوداء.</td></tr></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-warnings">
+  <div class="page-heading"><div><h2>تحذيراتي</h2><p>أي عضو مسجل الدخول يقدر يشوف التحذيرات المسجلة عليه؛ صلاحيات الإدارة تسمح فقط بعرض سجلات باقي الأعضاء وإدارة التحذيرات.</p></div><span class="pill">WARNING CENTER</span></div>
+  <div class="panel" id="warningCreatePanel" data-warning-create style="margin-bottom:17px">
+    <div class="panel-head"><h3><i class="fa-solid fa-triangle-exclamation"></i> تسجيل تحذير</h3></div>
+    <form id="warningForm">
+      <div class="form-grid">
+        <div class="field"><label for="warningUser">العضو *</label><select id="warningUser" required><option value="">حمّل الحسابات أولًا</option></select></div>
+        <div class="field"><label for="warningReason">السبب *</label><input id="warningReason" required placeholder="سبب التحذير"></div>
+      </div>
+      <div class="form-actions"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-file-circle-plus"></i> تسجيل التحذير</button></div>
+    </form>
+  </div>
+  <div class="panel"><div class="panel-head"><h3>التحذيرات المسجلة عليك / سجل الإدارة حسب الصلاحية</h3><button class="btn btn-secondary btn-small" data-action="warnings">تحديث</button></div><div class="table-wrap"><table><thead><tr><th>المعرف</th><th>العضو</th><th>السبب</th><th>التاريخ</th><th>قرار الطرد</th><th>إجراء</th></tr></thead><tbody id="warningsTable"><tr><td colspan="6" class="empty">جارٍ التحميل...</td></tr></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-absences">
+  <div class="page-heading"><div><h2>طلبات الغياب</h2><p>كل عضو يقدر يرسل طلب غياب ويتابع حالته؛ الإدارة تشوف كل الطلبات للمراجعة.</p></div><span class="pill">ABSENCE CENTER</span></div>
+  <div class="panel" style="margin-bottom:17px">
+    <div class="panel-head"><h3><i class="fa-solid fa-calendar-plus"></i> طلب غياب جديد</h3></div>
+    <form id="absenceRequestForm">
+      <div class="form-grid">
+        <div class="field"><label for="absenceStartDate">من تاريخ</label><input id="absenceStartDate" type="date"></div>
+        <div class="field"><label for="absenceEndDate">إلى تاريخ</label><input id="absenceEndDate" type="date"></div>
+        <div class="field full"><label for="absenceReason">سبب الغياب *</label><textarea id="absenceReason" required maxlength="1000" placeholder="اكتب سبب الغياب والتفاصيل..."></textarea></div>
+      </div>
+      <div class="form-actions"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> إرسال طلب الغياب</button></div>
+    </form>
+  </div>
+  <div class="panel"><div class="panel-head"><h3><i class="fa-solid fa-calendar-xmark"></i> طلباتي / قائمة الطلبات</h3><button class="btn btn-secondary btn-small" data-action="absences">تحديث</button></div><div class="table-wrap"><table><thead><tr><th>المعرف</th><th>العضو</th><th>السبب</th><th>الفترة</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="absencesTable"><tr><td colspan="6" class="empty">جارٍ التحميل...</td></tr></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-meetings">
+  <div class="page-heading"><div><h2>إدارة الاجتماعات</h2><p>إنشاء مواعيد الاجتماعات وتسجيل تفاصيلها.</p></div><span class="pill">MEETING ROOM</span></div>
+  <div class="panel" style="margin-bottom:17px">
+    <div class="panel-head"><h3><i class="fa-solid fa-calendar-plus"></i> اجتماع جديد</h3></div>
+    <form id="meetingForm">
+      <div class="form-grid">
+        <div class="field"><label for="meetingTitle">عنوان الاجتماع *</label><input id="meetingTitle" required placeholder="عنوان الاجتماع"></div>
+        <div class="field"><label for="meetingAt">التاريخ والوقت *</label><input id="meetingAt" type="datetime-local" required></div>
+        <div class="field full"><label for="meetingDescription">التفاصيل</label><textarea id="meetingDescription" placeholder="تفاصيل الاجتماع..."></textarea></div>
+      </div>
+      <div class="form-actions"><button class="btn btn-primary" type="submit"><i class="fa-solid fa-calendar-check"></i> إنشاء الاجتماع</button></div>
+    </form>
+  </div>
+  <div class="panel"><div class="panel-head"><h3>الاجتماعات المسجلة</h3><button class="btn btn-secondary btn-small" data-action="meetings">تحديث</button></div><div class="table-wrap"><table><thead><tr><th>المعرف</th><th>العنوان</th><th>التاريخ</th><th>التفاصيل</th></tr></thead><tbody id="meetingsTable"><tr><td colspan="4" class="empty">جارٍ التحميل...</td></tr></tbody></table></div></div>
+</section>
+
+<div class="footer-note">LOMBRA // INTERNAL MANAGEMENT INTERFACE</div>
+</main>
+</div>
+
+<div class="modal-backdrop hidden" id="memberModal" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle">
+  <div class="modal-card">
+    <div class="panel-head"><h3 id="memberModalTitle">إدارة العضو</h3><button class="icon-button" id="closeMemberModal" type="button" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="memberIdentity" class="member-identity"></div>
+    <form id="memberEditForm">
+      <div class="field"><label for="memberRole">الرتبة</label><select id="memberRole" required>
+        <option value="MEMBER">MEMBER</option><option value="BUSINESSMANAGER">BUSNESMANAGER</option><option value="SUPERVUSER">SUPERVUSER</option><option value="CAPO">CAPO</option><option value="UNDERBOSS">UNDERBOSS</option><option value="BOSS">BOSS</option>
+      </select></div>
+      <div class="permission-heading">الصلاحيات الإدارية المخصصة</div>
+      <div class="permission-grid" id="memberPermissionGrid">
+        <label class="permission"><input type="checkbox" name="memberPerm" value="addWarnings"> إضافة التحذيرات</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="reviewAbsences"> إدارة الغيابات</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageMeetings"> إدارة الاجتماعات</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="viewAllMembers"> عرض الأعضاء</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="viewAuditLogs"> عرض سجل الأحداث</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageInvitations"> أكواد الدعوة</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageOrders"> إدارة الطلبات</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageStoreProducts"> إضافة وحذف منتجات المتجر</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageStorePrices"> تعديل أسعار المتجر</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageStoreGroups"> إدارة أكواد المافيا والجانج</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageMemberStatus"> تنشيط وتعطيل حسابات الأعضاء</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="manageBlacklist"> عرض وإدارة القائمة السوداء</label>
+        <label class="permission"><input type="checkbox" name="memberPerm" value="expelMembers"> إقصاء الأعضاء</label>
+      </div>
+      <label class="permission full-access-option"><input id="memberAllPermissions" type="checkbox"> <strong>صلاحيات إدارية كاملة للأقسام المتاحة</strong></label>
+      <div class="form-actions"><button class="btn btn-primary" id="saveMemberChanges" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ الرتبة والصلاحيات</button></div>
+    </form>
+  </div>
+</div>
+
+<style>
+.modal-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.78);backdrop-filter:blur(9px)}
+.modal-backdrop.hidden{display:none!important}.modal-card{width:min(100%,650px);max-height:90vh;overflow:auto;padding:22px;border:1px solid rgba(237,23,55,.4);border-radius:8px;background:#111014;box-shadow:0 25px 90px #000b,0 0 40px #ed173718}
+.member-identity{display:flex;align-items:center;gap:14px;padding:14px;margin:12px 0 20px;background:#08080a;border:1px solid #30252a;border-radius:5px;overflow-wrap:anywhere}.member-avatar{width:64px;height:64px;flex:0 0 64px;border-radius:50%;object-fit:cover;border:2px solid #ed1737;background:#21151a}.member-identity strong{display:block;font-size:14px}.member-identity small{display:block;color:#92878c;margin-top:5px}.member-row{cursor:pointer}.member-row:hover{background:rgba(237,23,55,.07)}.member-name-button{border:0;background:transparent;color:#fff;text-align:left;cursor:pointer;font:inherit;font-weight:800}.member-name-button:hover{color:#ff3654}.permission-heading{font-weight:800;margin:18px 0 10px}.full-access-option{display:flex;margin-top:14px;padding:12px;border:1px solid #6b2633;background:#2b1016;border-radius:4px;gap:10px;align-items:center}.modal-card select{width:100%;min-height:44px;padding:10px;background:#09090b;color:#f4f0f2;border:1px solid #423039;border-radius:4px}.modal-card .form-actions{margin-top:20px}
+</style>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function openStoreAccess(){
+ const overlay=$('storeLaunchOverlay');
+ if(overlay){overlay.classList.add('active');overlay.setAttribute('aria-hidden','false');}
+ window.setTimeout(()=>{window.location.href='store-login.html';},850);
+}
+const state={me:null,permissions:{},accounts:[],warnings:[],absences:[],meetings:[],audit:[],storeProducts:[],storeOrders:[]};
+
+const pageNames={
+ overview:'مركز القيادة',
+ members:'أعضاء LOMBRA',
+ invitations:'أكواد الدعوة',
+ 'store-products':'أسعار المتجر',
+ 'store-groups':'أكواد المافيا والجانج',
+ 'store-orders':'إدارة الطلبات',
+ blacklist:'القائمة السوداء',
+ warnings:'التحذيرات',
+ absences:'طلبات الغياب',
+ meetings:'الاجتماعات',
+ audit:'سجل الأحداث'
+};
+const roleNames={
+ BOSS:'BOSS / القائد',
+ ADMIN:'ADMIN / إداري',
+ BUSINESSMANAGER:'BUSNESMANAGER',
+ BUSNESMANAGER:'BUSNESMANAGER',
+ SUPERVUSER:'SUPERVUSER',
+ UNDERBOSS:'UNDERBOSS / نائب القائد',
+ CAPO:'CAPO',
+ MEMBER:'MEMBER / عضو'
+};
+
+async function api(url,options={}){
+ const response=window.fetch?await fetch(url,{
+  credentials:'same-origin',...options,
+  headers:{'Content-Type':'application/json',...(options.headers||{})}
+ }):null;
+ const raw=await response.text();
+ let data={};
+ try{data=raw?JSON.parse(raw):{}}catch{}
+ if(!response.ok)throw new Error(data.error||data.message||`HTTP ${response.status}`);
+ return data;
+}
+function esc(v){
+ return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function arrayOf(d,...keys){
+ if(Array.isArray(d))return d;
+ for(const k of keys)if(Array.isArray(d?.[k]))return d[k];
+ return [];
+}
+function idOf(x){return x?.id??x?.user_id??''}
+function usernameOf(x){return x?.username??x?.user_name??x?.member_name??x?.display_name??'—'}
+function toast(msg,error=false){
+ const el=$('toast');el.textContent=msg;
+ el.classList.toggle('error',error);el.classList.add('show');
+ clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),3500);
+}
+function dateOf(v){
+ if(!v)return '—';
+ const d=new Date(v);
+ return Number.isNaN(d.getTime())?String(v):d.toLocaleString();
+}
+function emptyRow(n,msg='لا توجد بيانات'){
+ return `<tr><td colspan="${n}" class="empty">${esc(msg)}</td></tr>`;
+}
+function isBoss(){
+ return ['BOSS','ADMIN'].includes(String(state.me?.role||'').toUpperCase());
+}
+function isOwner(){return String(state.me?.role||'').toUpperCase()==='BOSS'}
+function can(permission){
+ if(permission==='storeProductsAccess') return isBoss() || state.permissions?.manageStoreProducts===true || state.permissions?.manageStorePrices===true;
+ if(permission==='membersAccess') return isBoss() || ['viewAllMembers','manageMemberStatus','expelMembers','manageBlacklist'].some(p=>state.permissions?.[p]===true);
+ return isBoss()||state.permissions?.[permission]===true;
+}
+function badge(status){
+ const s=String(status||'pending').toLowerCase();
+ if(['active','approved','accepted','نشط','مقبول'].includes(s))
+  return `<span class="badge badge-green">${esc(s==='active'?'نشط':s==='approved'?'مقبول':status)}</span>`;
+ if(['inactive','rejected','مرفوض','غير نشط'].includes(s))
+  return `<span class="badge badge-red">${esc(s==='inactive'?'غير نشط':s==='rejected'?'مرفوض':status)}</span>`;
+ return `<span class="badge badge-gold">${esc(status||'قيد المراجعة')}</span>`;
+}
+function applyPermissions(){
+ document.querySelectorAll('[data-permission]').forEach(el=>{
+  const perm = el.dataset.permission;
+  let allowed = can(perm);
+  if(perm === 'viewAllMembers') allowed = isBoss() || can('viewAllMembers');
+  if(perm === 'storeProductsAccess') allowed = can('manageStoreProducts') || can('manageStorePrices');
+  if(perm === 'membersAccess') allowed = can('membersAccess');
+  el.classList.toggle('hidden', !allowed);
+ });
+ document.querySelectorAll('[data-boss-only]').forEach(el=>{
+  el.classList.toggle('hidden',!isBoss());
+ });
+ const warningCreate=document.querySelector('[data-warning-create]');
+ if(warningCreate)warningCreate.classList.toggle('hidden',!can('addWarnings'));
+}
+function openPage(name){
+ if(!pageNames[name])return;
+ 
+ // تحديد الصلاحية المطلوبة لكل صفحة
+ const permMap = {
+   'members': 'membersAccess',
+   'blacklist': 'manageBlacklist',
+   'invitations': 'manageInvitations',
+   'store-orders': 'manageOrders',
+   'store-products': 'storeProductsAccess',
+   'store-groups': 'manageStoreGroups',
+   'meetings': 'manageMeetings'
+ };
+ 
+ const requiredPerm = permMap[name];
+ if(name !== 'overview' && requiredPerm && !can(requiredPerm)) {
+  toast('ليس لديك صلاحية لهذا القسم', true); return;
+ }
+
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ $('page-'+name).classList.add('active');
+ document.querySelectorAll('#nav [data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+ $('crumb').textContent=pageNames[name];
+ $('sidebar').classList.remove('open');
+ if(name==='members')loadMembers();
+ if(name==='invitations')loadInvitations();
+ if(name==='store-products')loadStoreProducts();
+ if(name==='store-groups'){loadStoreGroups();}
+ if(name==='store-orders')loadStoreOrders();
+ if(name==='blacklist')loadBlacklist();
+ if(name==='warnings')loadWarnings();
+ if(name==='absences')loadAbsences();
+ if(name==='meetings')loadMeetings();
+ if(name==='audit')loadAudit();
+}
+document.querySelectorAll('#nav [data-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.goto)));
+$('menuToggle').addEventListener('click',()=>$('sidebar').classList.toggle('open'));
+
+async function loadMe(){
+ const d=await api('/api/me');
+ state.me=d.user||d.account||d;
+ state.permissions=state.me.permissions||d.permissions||{};
+ if(!state.me?.role)throw new Error('تعذر قراءة بيانات الحساب');
+ $('profileName').textContent=state.me.display_name||state.me.displayName||state.me.username||'LOMBRA USER';
+ $('profileRole').textContent=roleNames[state.me.role]||state.me.role;
+ $('avatar').textContent=(state.me.display_name||state.me.displayName||state.me.username||'L').charAt(0).toUpperCase();
+ $('welcomeName').textContent=state.me.display_name||state.me.displayName||state.me.username||'LOMBRA';
+ $('welcomeRole').textContent=roleNames[state.me.role]||state.me.role;
+ applyPermissions();
+ document.querySelectorAll('[data-product-manager-only]').forEach(el=>el.classList.toggle('hidden', !can('manageStoreProducts')));
+ document.querySelectorAll('[data-price-manager-only]').forEach(el=>el.classList.toggle('hidden', !can('manageStorePrices')));
+}
+
+/* ------------------ إدارة طلبات المتجر ------------------ */
+function orderStatusOptions(current){
+ const statuses=['قيد المراجعة','مقبول','قيد التجهيز','مكتمل','مرفوض'];
+ return statuses.map(status=>`<option value="${esc(status)}" ${status===current?'selected':''}>${esc(status)}</option>`).join('');
+}
+async function loadStoreOrders(){
+ if(!can('manageOrders'))return;
+ $('storeOrdersTable').innerHTML=emptyRow(9,'جارٍ تحميل الطلبات...');
+ $('refreshStoreOrders').disabled=true;
+ try{
+  const d=await api('/api/boss/store/orders');
+  state.storeOrders=arrayOf(d,'orders','data');
+  $('ordersTotalCount').textContent=state.storeOrders.length;
+  $('ordersPendingCount').textContent=state.storeOrders.filter(o=>o.status==='قيد المراجعة').length;
+  $('ordersCompletedCount').textContent=state.storeOrders.filter(o=>o.status==='مكتمل').length;
+  if(!state.storeOrders.length){$('storeOrdersTable').innerHTML=emptyRow(9,'لا توجد طلبات حتى الآن.');return}
+  $('storeOrdersTable').innerHTML=state.storeOrders.map(order=>{
+   const items=Array.isArray(order.items)?order.items:[];
+   const itemText=items.map(item=>`${esc(item.name)} × ${Number(item.quantity)||1}`).join('<br>');
+   return `<tr><td><strong>${esc(order.id)}</strong></td><td>${esc(order.customer?.name||'—')}</td><td>${esc(order.customer?.discord||'—')}</td><td>${itemText||'—'}</td><td><strong>${formatPrice(order.total)} RP</strong></td><td>${esc(dateOf(order.created_at))}</td><td>${badge(order.status)}</td><td><div style="display:flex;gap:7px;min-width:190px"><select aria-label="حالة الطلب ${esc(order.id)}" id="order-status-${esc(order.id)}">${orderStatusOptions(order.status)}</select><button class="btn btn-primary btn-small" type="button" data-save-order="${esc(order.id)}">حفظ</button></div></td><td><button class="btn btn-danger btn-small" type="button" data-delete-order="${esc(order.id)}" aria-label="حذف الطلب ${esc(order.id)}"><i class="fa-solid fa-trash"></i> حذف</button></td></tr>`;
+  }).join('');
+ }catch(e){$('storeOrdersTable').innerHTML=emptyRow(9,e.message);toast('تعذر تحميل الطلبات: '+e.message,true)}
+ finally{$('refreshStoreOrders').disabled=false}
+}
+$('refreshStoreOrders').addEventListener('click',loadStoreOrders);
+$('storeOrdersTable').addEventListener('click',async event=>{
+ const deleteButton=event.target.closest('[data-delete-order]');
+ if(deleteButton){
+  if(!can('manageOrders')){toast('ليس لديك صلاحية لإدارة الطلبات',true);return}
+  const id=deleteButton.dataset.deleteOrder;
+  if(!confirm('هل أنت متأكد من حذف الطلب '+id+' نهائيًا؟'))return;
+  deleteButton.disabled=true;
+  try{
+   const result=await api('/api/boss/store/orders/'+encodeURIComponent(id),{method:'DELETE'});
+   toast(result.message||'تم حذف الطلب.');await loadStoreOrders();
+  }catch(error){toast('تعذّر حذف الطلب: '+error.message,true)}
+  finally{deleteButton.disabled=false}
+  return;
+ }
+ const button=event.target.closest('[data-save-order]');if(!button)return;
+ if(!can('manageOrders')){toast('ليس لديك صلاحية لإدارة الطلبات',true);return}
+ const id=button.dataset.saveOrder,select=$('order-status-'+button.dataset.saveOrder);if(!select)return;
+ button.disabled=true;
+ try{
+  const result=await api('/api/boss/store/orders/'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify({status:select.value})});
+  toast(result.message||'تم تحديث حالة الطلب.');await loadStoreOrders();
+ }catch(error){toast('تعذّر تحديث حالة الطلب: '+error.message,true)}
+ finally{button.disabled=false}
+});
+
+/* ------------------ إدارة منتجات المتجر مع الصور ------------------ */
+function formatPrice(value){
+ const n=Number(value);
+ if(!Number.isFinite(n))return '—';
+ return new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(n);
+}
+
+const globalProductImageInput=$('globalProductImage');
+if(globalProductImageInput){
+ globalProductImageInput.addEventListener('change',()=>{
+  const file=globalProductImageInput.files?.[0];
+  if(!file){$('globalProductPreviewWrap').style.display='none';return;}
+  if(!['image/png','image/jpeg','image/webp','image/gif'].includes(file.type)){
+   toast('اختر صورة PNG أو JPG أو WEBP أو GIF.',true);
+   globalProductImageInput.value='';
+   $('globalProductPreviewWrap').style.display='none';
+   return;
+  }
+  if(file.size>3.5*1024*1024){
+   toast('الصورة يجب أن تكون أصغر من 3.5MB.',true);
+   globalProductImageInput.value='';
+   $('globalProductPreviewWrap').style.display='none';
+   return;
+  }
+  $('globalProductPreview').src=URL.createObjectURL(file);
+  $('globalProductPreviewWrap').style.display='block';
+ });
+}
+
+$('globalProductForm')?.addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(!can('manageStoreProducts')){toast('ليس لديك صلاحية لإضافة المنتجات.',true);return;}
+ const name=$('globalProductName').value.trim();
+ const price=Number($('globalProductPrice').value);
+ const description=$('globalProductDescription').value.trim();
+ const file=$('globalProductImage').files?.[0];
+
+ if(name.length<2){toast('اكتب اسم المنتج (حرفان على الأقل).',true);return;}
+ if(!Number.isSafeInteger(price)||price<0||price>1000000000){toast('أدخل سعرًا صحيحًا.',true);return;}
+ if(!file){toast('اختر صورة للمنتج.',true);return;}
+
+ const button=$('addGlobalProductBtn');
+ const previous=button.innerHTML;
+ button.disabled=true;
+ button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جارٍ الإضافة...';
+ try{
+  const image=await new Promise((resolve,reject)=>{
+   const reader=new FileReader();
+   reader.onload=()=>resolve(String(reader.result||''));
+   reader.onerror=()=>reject(new Error('تعذّرت قراءة الصورة من الجهاز.'));
+   reader.readAsDataURL(file);
+  });
+  const result=await api('/api/boss/store/products',{
+   method:'POST',
+   body:JSON.stringify({name,price,image,description})
+  });
+  toast(result.message||'تمت إضافة المنتج بنجاح.');
+  $('globalProductForm').reset();
+  $('globalProductPreviewWrap').style.display='none';
+  await loadStoreProducts();
+ }catch(error){
+  toast(error.message||'تعذّرت إضافة المنتج.',true);
+ }finally{
+  button.disabled=false;
+  button.innerHTML=previous;
+ }
+});
+
+async function loadStoreProducts(){
+ if(!can('manageStoreProducts') && !can('manageStorePrices'))return;
+ $('storeProductsTable').innerHTML=emptyRow(6,'جارٍ تحميل المنتجات...');
+ $('refreshStoreProducts').disabled=true;
+ try{
+  const d=await api('/api/boss/store/products');
+  state.storeProducts=arrayOf(d,'products','data');
+  if(!state.storeProducts.length){
+   $('storeProductsTable').innerHTML=emptyRow(6,'لا توجد منتجات في قاعدة البيانات.');
+   return;
+  }
+  $('storeProductsTable').innerHTML=state.storeProducts.map(p=>{
+   const price=Number(p.price);
+   const safePrice=Number.isSafeInteger(price)&&price>=0?price:0;
+   return `<tr>
+    <td>
+      <div class="product-name-cell">
+        ${p.image ? `<img src="${esc(p.image)}" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:9px;border:1px solid var(--border);background:#080608">` : `<span class="product-icon"><i class="fa-solid fa-box"></i></span>`}
+        <span><strong>${esc(p.name)}</strong><small>${esc(p.id)}</small></span>
+      </div>
+    </td>
+    <td><span class="price-label">${formatPrice(safePrice)}</span></td>
+    <td>
+      ${can('manageStorePrices') ? `<input class="price-input" type="number" min="0" max="1000000000" step="1" inputmode="numeric" aria-label="السعر الجديد لـ ${esc(p.name)}" id="price-${esc(p.id)}" value="${safePrice}">` : '<span class="badge badge-muted">عرض فقط</span>'}
+    </td>
+    <td>${esc(dateOf(p.updated_at))}</td>
+    <td>
+      ${can('manageStorePrices') ? `<button class="btn btn-primary btn-small" type="button" data-save-price="${esc(p.id)}"><i class="fa-solid fa-floppy-disk"></i> حفظ السعر</button>` : '—'}
+    </td>
+    <td>
+      ${!can('manageStoreProducts') ? '<span class="badge badge-muted">بدون صلاحية الحذف</span>' : String(p.id).toLowerCase()==='dirty-money' && !isOwner()
+        ? `<button class="btn btn-secondary btn-small" type="button" disabled title="الحذف متاح للقائد BOSS فقط"><i class="fa-solid fa-shield-halved"></i> محمي — BOSS فقط</button>`
+        : `<button class="btn btn-danger btn-small" type="button" data-delete-product="${esc(p.id)}" data-product-name="${esc(p.name)}"><i class="fa-solid fa-trash"></i> حذف المنتج</button>`}
+    </td>
+   </tr>`;
+  }).join('');
+ }catch(e){
+  $('storeProductsTable').innerHTML=emptyRow(6,e.message);
+  toast('تعذر تحميل المنتجات: '+e.message,true);
+ }finally{
+  $('refreshStoreProducts').disabled=false;
+ }
+}
+
+$('refreshStoreProducts').addEventListener('click',loadStoreProducts);
+
+$('storeProductsTable').addEventListener('click',async e=>{
+ const deleteButton=e.target.closest('[data-delete-product]');
+ if(deleteButton){
+  if(!can('manageStoreProducts')){toast('ليس لديك صلاحية لحذف المنتجات.',true);return;}
+  const id=deleteButton.dataset.deleteProduct;
+  const name=deleteButton.dataset.productName||id;
+  if(!confirm(`هل تريد حذف المنتج «${name}» نهائيًا من واجهة المتجر؟ لن تتأثر الطلبات القديمة المحفوظة.`))return;
+  const previous=deleteButton.innerHTML;
+  deleteButton.disabled=true;
+  deleteButton.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جارٍ الحذف...';
+  try{
+   const result=await api('/api/boss/store/products/'+encodeURIComponent(id),{method:'DELETE'});
+   toast(result.message||'تم حذف المنتج.');
+   await loadStoreProducts();
+  }catch(error){
+   toast('تعذّر حذف المنتج: '+error.message,true);
+   deleteButton.disabled=false;
+   deleteButton.innerHTML=previous;
+  }
+  return;
+ }
+ const button=e.target.closest('[data-save-price]');
+ if(!button)return;
+ if(!can('manageStorePrices')){toast('ليس لديك صلاحية لتعديل الأسعار',true);return;}
+ const id=button.dataset.savePrice;
+ const input=$('price-'+id);
+ if(!input)return;
+ const price=Number(input.value);
+ if(!Number.isSafeInteger(price)||price<0||price>1000000000){
+  toast('أدخل سعرًا صحيحًا بين 0 و1,000,000,000',true);
+  input.focus();
+  return;
+ }
+ const originalText=button.innerHTML;
+ button.disabled=true;
+ button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جارٍ الحفظ';
+ try{
+  const result=await api('/api/boss/store/products/'+encodeURIComponent(id),{
+   method:'PATCH',
+   body:JSON.stringify({price})
+  });
+  toast(result.message||'تم حفظ السعر بنجاح');
+  await loadStoreProducts();
+ }catch(err){
+  toast('تعذّر حفظ السعر: '+err.message,true);
+ }finally{
+  button.disabled=false;
+  button.innerHTML=originalText;
+ }
+});
+
+/* ------------------ مولّد أكواد الدعوة ------------------ */
+let latestInvitationCode='';
+async function loadInvitations(){
+ if(!can('manageInvitations'))return;
+ const table=$('usedInvitesTable');
+ if(!table)return;
+ table.innerHTML=emptyRow(3,'جارٍ تحميل الدعوات المستعملة...');
+ try{
+  const data=await api('/api/boss/invitation-codes');
+  const codes=arrayOf(data,'codes','invitations','data');
+  table.innerHTML=codes.length?codes.map(item=>`<tr><td><code dir="ltr" style="color:var(--gold)">${esc(item.code_hint||'…')}</code></td><td>${esc(item.used_by_display_name||item.used_by_username||'—')}</td><td>${esc(dateOf(item.used_at||item.created_at))}</td></tr>`).join(''):emptyRow(3,'لا توجد دعوات مستعملة حتى الآن.');
+ }catch(error){table.innerHTML=emptyRow(3,error.message);toast('تعذر تحميل الدعوات: '+error.message,true)}
+}
+async function createInvitation(code, button){
+ if(!can('manageInvitations')){toast('إنشاء أكواد الدعوة غير متاح لحسابك',true);return}
+ if(button)button.disabled=true;
+ const old=button?.innerHTML;
+ if(button)button.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> جارٍ الإنشاء...';
+ try{
+  const result=await api('/api/boss/invitation-codes',{method:'POST',body:JSON.stringify(code?{code}:{})});
+  latestInvitationCode=String(result.code||'');
+  if(!latestInvitationCode)throw new Error('لم يرجع الخادم كود الدعوة.');
+  $('newInviteCode').textContent=latestInvitationCode;
+  $('newInviteResult').classList.remove('hidden');
+  if($('customInviteCode'))$('customInviteCode').value='';
+  toast(result.message||'تم إنشاء كود الدعوة.');
+  await loadInvitations();
+ }catch(error){toast('تعذر إنشاء كود الدعوة: '+error.message,true)}
+ finally{if(button){button.disabled=false;button.innerHTML=old}}
+}
+const generateInviteBtn=$('generateInviteBtn');
+if(generateInviteBtn)generateInviteBtn.addEventListener('click',()=>createInvitation('',generateInviteBtn));
+const createCustomInviteBtn=$('createCustomInviteBtn');
+if(createCustomInviteBtn)createCustomInviteBtn.addEventListener('click',()=>{
+ const code=String($('customInviteCode')?.value||'').trim().toUpperCase();
+ if(!code){toast('اكتب الكود المخصص أولًا.',true);return}
+ createInvitation(code,createCustomInviteBtn);
+});
+const copyInviteBtn=$('copyInviteBtn');
+if(copyInviteBtn)copyInviteBtn.addEventListener('click',async()=>{
+ if(!latestInvitationCode)return;
+ try{
+  await navigator.clipboard.writeText(latestInvitationCode);
+  toast('تم نسخ كود الدعوة.');
+ }catch{
+  const range=document.createRange();range.selectNodeContents($('newInviteCode'));
+  const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);
+  toast('حدّد الكود ثم انسخه باستعمال Ctrl+C.');
+ }
+});
+const refreshInvitesBtn=$('refreshInvitesBtn');
+if(refreshInvitesBtn)refreshInvitesBtn.addEventListener('click',loadInvitations);
+
+/* ------------------ أعضاء LOMBRA والرتب والصلاحيات (تنشيط / غير نشط) ------------------ */
+const MEMBER_PERMISSIONS=['addWarnings','reviewAbsences','manageMeetings','viewAllMembers','viewAuditLogs','manageInvitations','manageOrders','manageStoreProducts','manageStorePrices','manageStoreGroups','manageMemberStatus','manageBlacklist','expelMembers'];
+let editingMemberId=null;
+function discordAvatarUrl(member){
+ if(member.discord_avatar && /^https:\/\//i.test(member.discord_avatar)) return member.discord_avatar;
+ if(member.discord_id && member.discord_avatar) return `https://cdn.discordapp.com/avatars/${encodeURIComponent(member.discord_id)}/${encodeURIComponent(member.discord_avatar)}.png?size=128`;
+ return '';
+}
+function memberAvatar(member){
+ const url=discordAvatarUrl(member);
+ return url ? `<img class="member-avatar" src="${esc(url)}" alt="Discord avatar" loading="lazy" onerror="this.style.display='none'">` : `<div class="member-avatar" style="display:grid;place-items:center"><i class="fa-solid fa-user"></i></div>`;
+}
+async function loadMembers(){
+ if(!can('membersAccess'))return;
+ $('membersTable').innerHTML=emptyRow(8,'جارٍ تحميل الأعضاء...');
+ try{
+  const d=await api('/api/boss/accounts');
+  state.accounts=arrayOf(d,'accounts','users','data');
+  $('membersTable').innerHTML=state.accounts.length?state.accounts.map(u=>{
+   const active=!(u.active===false||u.active===0);
+   const discordName=u.discord_global_name||u.discord_username||'غير مربوط';
+   const inviteCode=u.invitation_code||'لا يوجد';
+   const protectedAccount=String(u.role||'').toUpperCase()==='BOSS'||String(idOf(u))===String(idOf(state.me));
+   
+   const statusAction = protectedAccount ? '—' : [
+     (can('manageMemberStatus') ? (active
+       ? `<button class="btn btn-secondary btn-small" type="button" data-toggle-member="${esc(idOf(u))}" data-new-status="0"><i class="fa-solid fa-user-slash"></i> تعطيل</button>`
+       : `<button class="btn btn-primary btn-small" type="button" data-toggle-member="${esc(idOf(u))}" data-new-status="1"><i class="fa-solid fa-user-check"></i> تنشيط</button>`) : ''),
+     (can('expelMembers') ? `<button class="btn btn-danger btn-small" type="button" data-expel-member="${esc(idOf(u))}"><i class="fa-solid fa-user-xmark"></i> إقصاء</button>` : ''),
+     (can('manageBlacklist') && !u.is_blacklisted ? `<button class="btn btn-secondary btn-small" type="button" data-blacklist-member="${esc(idOf(u))}"><i class="fa-solid fa-user-lock"></i> BLACKLIST</button>` : '')
+   ].filter(Boolean).join(' ') || '—';
+
+   return `<tr class="member-row" data-member-row="${esc(idOf(u))}">
+    <td><button class="member-name-button" type="button" data-member-edit="${esc(idOf(u))}"><span style="display:flex;align-items:center;gap:10px">${memberAvatar(u)}<span><span>${esc(discordName)}</span><small style="display:block;color:var(--muted);font-weight:400">@${esc(u.discord_username||u.username||'—')}</small></span></span></button></td>
+    <td>${esc(u.discord_id||'غير مربوط')}</td>
+    <td>${esc(u.display_name||u.username||'—')}</td>
+    <td><span class="badge badge-muted">${esc(roleNames[u.role]||u.role||'MEMBER')}</span></td>
+    <td><span class="badge ${Number(u.warning_count||0)>0?'badge-red':'badge-muted'}">${Number(u.warning_count||0)} WARN</span></td>
+    <td><code dir="ltr" style="overflow-wrap:anywhere">${esc(inviteCode)}</code></td>
+    <td>${u.is_blacklisted ? '<span class="badge badge-red">BLACKLIST</span>' : badge(active?'active':'inactive')}</td>
+    <td>${statusAction}</td>
+   </tr>`;
+  }).join(''):emptyRow(7,'لا توجد حسابات مسجلة.');
+  $('warningUser').innerHTML='<option value="">اختر العضو</option>'+state.accounts.map(u=>`<option value="${esc(idOf(u))}">${esc(u.display_name||u.username)} (${esc(u.username)})</option>`).join('');
+  $('statAccounts').textContent=state.accounts.length;
+ }catch(e){$('membersTable').innerHTML=emptyRow(8,e.message);toast('تعذر تحميل الأعضاء: '+e.message,true)}
+}
+
+function openMemberEditor(member){
+ if(!isOwner()){toast('تعديل الرتب والصلاحيات متاح للـ BOSS فقط',true);return}
+ editingMemberId=idOf(member);
+ const discordName=member.discord_global_name||member.discord_username||member.display_name||member.username||'عضو LOMBRA';
+ $('memberModalTitle').textContent='إدارة العضو';
+ $('memberIdentity').innerHTML=`${memberAvatar(member)}<div><strong>${esc(discordName)}</strong><small>Discord username: ${esc(member.discord_username||'غير مربوط')}</small><small>Discord ID: ${esc(member.discord_id||'غير مربوط')}</small><small>LOMBRA ID: #${esc(idOf(member))} · ${esc(member.active===false||member.active===0?'غير نشط':'نشط')}</small></div>`;
+ const role=String(member.role||'MEMBER').toUpperCase();
+ const roleSelect=$('memberRole');
+ const legacyOption=roleSelect.querySelector('option[value="ADMIN"]');
+ if(role==='ADMIN'&&!legacyOption){roleSelect.insertAdjacentHTML('beforeend','<option value="ADMIN">ADMIN (legacy account)</option>')}
+ if(role!=='ADMIN'&&legacyOption)legacyOption.remove();
+ roleSelect.value=role==='BUSNESMANAGER'?'BUSINESSMANAGER':role;
+ document.querySelectorAll('input[name="memberPerm"]').forEach(input=>input.checked=member.permissions?.[input.value]===true);
+ $('memberAllPermissions').checked=MEMBER_PERMISSIONS.every(p=>member.permissions?.[p]===true);
+ $('memberModal').classList.remove('hidden');
+}
+
+function closeMemberEditor(){$('memberModal').classList.add('hidden');editingMemberId=null}
+
+$('membersTable').addEventListener('click',async e=>{
+ const blacklistBtn=e.target.closest('[data-blacklist-member]');
+ if(blacklistBtn){
+  if(!can('manageBlacklist'))return toast('ما عندكش صلاحية BLACKLIST',true);
+  const id=blacklistBtn.dataset.blacklistMember;
+  const target=state.accounts.find(u=>String(idOf(u))===String(id));
+  const label=target?.display_name||target?.username||'هذا العضو';
+  const reason=prompt('سبب إدراج '+label+' في BLACKLIST:','إقصاء إداري يدوي');
+  if(reason===null)return;
+  blacklistBtn.disabled=true;
+  try{const result=await api('/api/boss/accounts/'+encodeURIComponent(id)+'/blacklist',{method:'POST',body:JSON.stringify({reason})});toast(result.message||'تم إدراج العضو في BLACKLIST');await Promise.all([loadMembers(),loadBlacklist()]);}
+  catch(err){toast(err.message||'تعذر إدراج العضو في BLACKLIST',true)}
+  finally{blacklistBtn.disabled=false}
+  return;
+ }
+ const expelBtn=e.target.closest('[data-expel-member]');
+ if(expelBtn){
+  if(!can('expelMembers'))return toast('ما عندكش صلاحية إقصاء الأعضاء',true);
+  const id=expelBtn.dataset.expelMember;
+  const target=state.accounts.find(u=>String(idOf(u))===String(id));
+  const label=target?.display_name||target?.username||'هذا العضو';
+  if(!confirm(`تأكيد إقصاء ${label}؟ سيتم تعطيل دخوله مع الحفاظ على كل سجلاته وطلباته وتحذيراته.`))return;
+  expelBtn.disabled=true;
+  try{const result=await api('/api/boss/accounts/'+encodeURIComponent(id)+'/expel',{method:'POST',body:JSON.stringify({})});toast(result.message||'تم إقصاء العضو');await loadMembers();}
+  catch(err){toast(err.message||'تعذّر إقصاء العضو',true)}
+  finally{expelBtn.disabled=false}
+  return;
+ }
+ const toggleBtn=e.target.closest('[data-toggle-member]');
+ if(toggleBtn){
+  if(!can('manageMemberStatus')){toast('ما عندكش صلاحية تنشيط أو تعطيل الحسابات',true);return}
+  const id=toggleBtn.dataset.toggleMember;
+  const newStatus=toggleBtn.dataset.newStatus === '1';
+  try{
+   const result=await api('/api/boss/accounts/'+encodeURIComponent(id)+'/status',{method:'PATCH',body:JSON.stringify({active:newStatus})});
+   toast(result.message||(newStatus ? 'تم تنشيط الحساب بنجاح' : 'تم تعطيل الحساب بنجاح'));
+   await loadMembers();
+  }catch(error){toast('تعذّر تغيير حالة الحساب: '+error.message,true)}
+  return;
+ }
+ const button=e.target.closest('[data-member-edit]');
+ const row=e.target.closest('[data-member-row]');
+ const id=button?.dataset.memberEdit||row?.dataset.memberRow;
+ if(!id)return;
+ const member=state.accounts.find(u=>String(idOf(u))===String(id));
+ if(member)openMemberEditor(member);
+});
+
+$('closeMemberModal').addEventListener('click',closeMemberEditor);
+$('memberModal').addEventListener('click',e=>{if(e.target===$('memberModal'))closeMemberEditor()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('memberModal').classList.contains('hidden'))closeMemberEditor()});$('memberAllPermissions').addEventListener('change',e=>document.querySelectorAll('input[name="memberPerm"]').forEach(input=>input.checked=e.target.checked));
+document.querySelectorAll('input[name="memberPerm"]').forEach(input=>input.addEventListener('change',()=>{$('memberAllPermissions').checked=MEMBER_PERMISSIONS.every(p=>document.querySelector(`input[name="memberPerm"][value="${p}"]`).checked)}));
+$('memberEditForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!isOwner())return toast('تعديل الرتب والصلاحيات متاح للـ BOSS فقط',true);
+ const member=state.accounts.find(u=>String(idOf(u))===String(editingMemberId));if(!member)return toast('العضو غير موجود',true);
+ const role=$('memberRole').value;
+ const permissions={manageAccounts:false};document.querySelectorAll('input[name="memberPerm"]').forEach(input=>permissions[input.value]=input.checked);
+ if(role==='BOSS'&&String(member.role).toUpperCase()!=='BOSS'&&!confirm('تنبيه: منح رتبة BOSS يعطي تحكمًا كاملاً. هل تريد المتابعة؟'))return;
+ $('saveMemberChanges').disabled=true;
+ try{
+  await api(`/api/boss/accounts/${encodeURIComponent(idOf(member))}`,{method:'PATCH',body:JSON.stringify({role,permissions})});
+  toast('تم حفظ الرتبة والصلاحيات بنجاح');closeMemberEditor();await loadMembers();
+ }catch(err){toast('تعذر حفظ التعديلات: '+err.message,true)}
+ finally{$('saveMemberChanges').disabled=false}
+});
+
+/* ------------------ التحذيرات ------------------ */
+async function loadBlacklist(){
+ const table=$('blacklistTable'); if(!table)return;
+ table.innerHTML=emptyRow(7,'جارٍ تحميل القائمة السوداء...');
+ try{
+  const d=await api('/api/boss/blacklist');
+  const members=arrayOf(d,'members','accounts','data');
+  table.innerHTML=members.length?members.map(m=>`<tr>
+   <td>${esc(m.display_name||m.username||('عضو #'+idOf(m)))}</td>
+   <td>${esc(roleNames[m.role]||m.role||'MEMBER')}</td>
+   <td><span class="badge badge-red">${Number(m.current_warning_count||m.warning_count||0)} WARN</span></td>
+   <td>${esc(m.reason||'—')}</td><td>${esc(m.blacklisted_at||'—')}</td>
+   <td><span class="badge badge-red">BLACKLIST</span></td>
+   <td>${isOwner()?`<button class="btn btn-primary btn-small" data-restore-blacklist="${esc(m.user_id)}"><i class="fa-solid fa-user-check"></i> إرجاع العضو</button>`:'<span class="muted">الإرجاع للـ BOSS فقط</span>'}</td>
+  </tr>`).join(''):emptyRow(7,'القائمة السوداء فارغة.');
+ }catch(e){table.innerHTML=emptyRow(7,e.message);toast('تعذر تحميل القائمة السوداء: '+e.message,true)}
+}
+const blacklistTable=$('blacklistTable');
+if(blacklistTable)blacklistTable.addEventListener('click',async e=>{
+ const b=e.target.closest('[data-restore-blacklist]'); if(!b)return;
+ if(!isOwner())return toast('إرجاع أعضاء BLACKLIST متاح للـ BOSS فقط',true);
+ const id=b.dataset.restoreBlacklist;
+ if(!confirm('هل تريد إرجاع هذا العضو من BLACKLIST وتنشيط حسابه؟'))return;
+ b.disabled=true;
+ try{
+  const result=await api('/api/boss/accounts/'+encodeURIComponent(id)+'/status',{method:'PATCH',body:JSON.stringify({active:true})});
+  toast(result.message||'تم إرجاع العضو وتنشيط حسابه');
+  await Promise.all([loadBlacklist(),loadMembers()]);
+ }catch(err){toast(err.message||'تعذر إرجاع العضو',true)}finally{b.disabled=false}
+});
+
+async function loadWarnings(){
+ $('warningsTable').innerHTML=emptyRow(6,'جارٍ تحميل التحذيرات...');
+ try{
+  const d=await api('/api/warnings');state.warnings=arrayOf(d,'warnings','data');
+  $('warningsTable').innerHTML=state.warnings.length?state.warnings.map(w=>{
+   const count=Number(w.warning_count||0);
+   const kickStatus=String(w.kick_status||'').toLowerCase();
+   let decisionCell='<span class="muted">—</span>';
+   if(count>=3 && kickStatus==='pending' && can('addWarnings')){
+    decisionCell=`<div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btn-danger btn-small" data-kick-decision="confirm" data-user-id="${esc(w.user_id)}">تأكيد الطرد</button>
+      <button class="btn btn-secondary btn-small" data-kick-decision="cancel" data-user-id="${esc(w.user_id)}">إلغاء</button>
+     </div><small style="display:block;margin-top:5px;color:#d6a5a5">${count} WARNs — بانتظار Boss</small>`;
+   }else if(kickStatus==='confirmed'){
+    decisionCell='<span class="badge badge-muted">تم تعطيل الحساب</span>';
+   }else if(kickStatus==='cancelled'){
+    decisionCell='<span class="badge badge-muted">أُلغي طلب الطرد</span>';
+   }else if(count>=3){
+    decisionCell=`<span class="badge badge-muted">${count} WARNs</span>`;
+   }
+   return `<tr>
+    <td>#${esc(idOf(w))}</td><td>${esc(usernameOf(w))}</td>
+    <td>${esc(w.reason||w.description||'—')}${Number(w.is_expired)===1?'<small style="display:block;margin-top:4px;color:#92878c">انتهى مفعول WARN — محفوظ في الأرشيف</small>':''}</td><td>${esc(dateOf(w.created_at||w.date))}</td>
+    <td>${decisionCell}</td>
+    <td>${isBoss()?`<button class="btn btn-danger btn-small" type="button" data-delete-warning="${esc(idOf(w))}"><i class="fa-solid fa-trash"></i> حذف التحذير</button>`:'—'}</td>
+   </tr>`;
+  }).join(''):emptyRow(6, (isBoss()||can('viewAllMembers')||can('addWarnings')) ? 'ما كاين حتى تحذير مسجل.' : 'ما كاين حتى WARN مسجل عليك.');
+  $('statWarnings').textContent=state.warnings.length;
+ }catch(e){$('warningsTable').innerHTML=emptyRow(6,e.message)}
+}
+$('warningsTable').addEventListener('click',async e=>{
+ const deleteButton=e.target.closest('[data-delete-warning]');
+ if(deleteButton){
+  if(!isBoss()){toast('حذف التحذيرات متاح للإدارة فقط',true);return}
+  const id=deleteButton.dataset.deleteWarning;
+  if(!confirm('هل تريد حذف هذا التحذير نهائيًا؟'))return;
+  deleteButton.disabled=true;
+  try{const result=await api('/api/boss/warnings/'+encodeURIComponent(id),{method:'DELETE'});toast(result.message||'تم حذف التحذير');await loadWarnings();}
+  catch(error){toast('تعذّر حذف التحذير: '+error.message,true)}
+  finally{deleteButton.disabled=false}
+  return;
+ }
+ const button=e.target.closest('[data-kick-decision]');
+ if(!button)return;
+ const decision=button.dataset.kickDecision;
+ const userId=button.dataset.userId;
+ const confirmText=decision==='confirm'
+  ? 'هل تؤكد تعطيل حساب العضو بالكامل؟ لن يستطيع تسجيل الدخول أو استخدام المتجر.'
+  : 'هل تريد إلغاء طلب الطرد والإبقاء على حساب العضو؟';
+ if(!window.confirm(confirmText))return;
+ button.disabled=true;
+ try{
+  const result=await api('/api/boss/warnings/'+encodeURIComponent(userId)+'/kick-review',{
+   method:'POST',body:JSON.stringify({decision})
+  });
+  toast(result.message||'تم حفظ قرار الإدارة');
+  await Promise.all([loadWarnings(),loadMembers()]);
+ }catch(err){toast(err.message||'تعذّر حفظ القرار',true)}
+ finally{button.disabled=false}
+});
+$('warningForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ try{
+  const result=await api('/api/warnings',{method:'POST',body:JSON.stringify({user_id:$('warningUser').value,reason:$('warningReason').value.trim()})});
+  toast(result.message||'تم تسجيل التحذير');$('warningReason').value='';await Promise.all([loadWarnings(),loadMembers(),loadBlacklist()]);
+ }catch(err){toast(err.message,true)}
+});
+
+/* ------------------ طلب الغياب متاح لكل عضو ------------------ */
+const absenceRequestForm=$('absenceRequestForm');
+if(absenceRequestForm)absenceRequestForm.addEventListener('submit',async e=>{
+ e.preventDefault();
+ const reason=$('absenceReason').value.trim();
+ if(!reason)return toast('اكتب سبب الغياب أولاً',true);
+ const start_date=$('absenceStartDate').value;
+ const end_date=$('absenceEndDate').value;
+ if(start_date&&end_date&&end_date<start_date)return toast('تاريخ النهاية لازم يكون بعد تاريخ البداية',true);
+ const submit=absenceRequestForm.querySelector('button[type="submit"]');submit.disabled=true;
+ try{
+  const result=await api('/api/absences',{method:'POST',body:JSON.stringify({reason,start_date,end_date})});
+  toast(result.message||'تم إرسال طلب الغياب للإدارة');absenceRequestForm.reset();await loadAbsences();
+ }catch(err){toast(err.message||'تعذّر إرسال طلب الغياب',true)}
+ finally{submit.disabled=false}
+});
+
+/* ------------------ الغيابات ------------------ */
+async function loadAbsences(){
+ $('absencesTable').innerHTML=emptyRow(6,'جارٍ التحميل...');
+ try{
+  const d=await api('/api/absences');state.absences=arrayOf(d,'absences','requests','data');
+  $('absencesTable').innerHTML=state.absences.length?state.absences.map(a=>{
+   const s=String(a.status||'pending').toLowerCase();
+   const pending=['pending','review','under_review','قيد المراجعة'].includes(s);
+   const ownPending = pending && String(a.user_id) === String(idOf(state.me));
+   const reviewButtons = pending && can('reviewAbsences') ? `<button class="btn btn-primary btn-small" data-review="${esc(idOf(a))}" data-status="approved">قبول</button> <button class="btn btn-danger btn-small" data-review="${esc(idOf(a))}" data-status="rejected">رفض</button>` : '';
+   const ownerButtons = ownPending ? `<button class="btn btn-secondary btn-small" data-edit-absence="${esc(idOf(a))}">تعديل</button> <button class="btn btn-danger btn-small" data-delete-absence="${esc(idOf(a))}">حذف</button>` : '';
+   return `<tr><td>#${esc(idOf(a))}</td><td>${esc(usernameOf(a))}</td>
+    <td>${esc(a.reason||a.description||'—')}</td>
+    <td>${esc(a.start_date||a.date_from||a.date||'—')}${a.end_date?' → '+esc(a.end_date):''}</td>
+    <td>${badge(s)}</td><td>${reviewButtons}${ownerButtons}${reviewButtons||ownerButtons?'':'—'}</td></tr>`;
+  }).join(''):emptyRow(6, (isBoss()||can('reviewAbsences')||can('viewAllMembers')) ? 'ما كاين حتى طلب غياب.' : 'ما بعثتش حتى طلب غياب من قبل.');
+  $('statAbsences').textContent=state.absences.filter(a=>['pending','review','under_review'].includes(String(a.status||'pending').toLowerCase())).length;
+ }catch(e){$('absencesTable').innerHTML=emptyRow(6,e.message)}
+}
+$('absencesTable').addEventListener('click',async e=>{
+ const review=e.target.closest('[data-review]');
+ const edit=e.target.closest('[data-edit-absence]');
+ const del=e.target.closest('[data-delete-absence]');
+ try{
+  if(edit){
+   const id=edit.dataset.editAbsence;
+   const item=state.absences.find(a=>String(idOf(a))===String(id));
+   if(!item)return toast('ما لقيناش طلب الغياب',true);
+   const reason=prompt('عدّل سبب الغياب:',item.reason||'');
+   if(reason===null)return;
+   if(!reason.trim())return toast('سبب الغياب مطلوب',true);
+   const start_date=prompt('تاريخ البداية (YYYY-MM-DD)، اتركه فارغاً إذا ما كاش:',item.start_date||'');
+   if(start_date===null)return;
+   const end_date=prompt('تاريخ النهاية (YYYY-MM-DD)، اتركه فارغاً إذا ما كاش:',item.end_date||'');
+   if(end_date===null)return;
+   if(start_date&&end_date&&end_date<start_date)return toast('تاريخ النهاية لازم يكون بعد تاريخ البداية',true);
+   await api(`/api/absences/${encodeURIComponent(id)}`,{method:'PATCH',body:JSON.stringify({reason:reason.trim(),start_date:start_date.trim(),end_date:end_date.trim()})});
+   toast('تم تعديل طلب الغياب');await loadAbsences();return;
+  }
+  if(del){
+   const id=del.dataset.deleteAbsence;
+   if(!confirm('متأكد تحب تحذف طلب الغياب؟ هذا ممكن غير إذا ما زال قيد المراجعة.'))return;
+   await api(`/api/absences/${encodeURIComponent(id)}`,{method:'DELETE'});
+   toast('تم حذف طلب الغياب');await loadAbsences();return;
+  }
+  if(review){
+   const note=prompt('ملاحظة للمراجعة (اختياري):','')||'';
+   await api(`/api/absences/${encodeURIComponent(review.dataset.review)}/review`,{method:'PATCH',body:JSON.stringify({status:review.dataset.status,review_note:note})});
+   toast(review.dataset.status==='approved'?'تم قبول الطلب':'تم رفض الطلب');await loadAbsences();
+  }
+ }catch(err){toast(err.message||'تعذّر تنفيذ العملية',true)}
+});
+
+/* ------------------ الاجتماعات ------------------ */
+async function loadMeetings(){
+ $('meetingsTable').innerHTML=emptyRow(4,'جارٍ التحميل...');
+ try{
+  const d=await api('/api/meetings');state.meetings=arrayOf(d,'meetings','data');
+  $('meetingsTable').innerHTML=state.meetings.length?state.meetings.map(m=>`<tr>
+   <td>#${esc(idOf(m))}</td><td>${esc(m.title||'—')}</td>
+   <td>${esc(dateOf(m.meeting_at||m.date||m.created_at))}</td><td>${esc(m.description||'—')}</td>
+  </tr>`).join(''):emptyRow(4);
+  $('statMeetings').textContent=state.meetings.length;
+ }catch(e){$('meetingsTable').innerHTML=emptyRow(4,e.message)}
+}
+$('meetingForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ try{
+  await api('/api/meetings',{method:'POST',body:JSON.stringify({
+   title:$('meetingTitle').value.trim(),meeting_at:$('meetingAt').value,
+   description:$('meetingDescription').value.trim()
+  })});
+  toast('تم إنشاء الاجتماع');e.target.reset();await loadMeetings();
+ }catch(err){toast('تعذر إنشاء الاجتماع: '+err.message,true)}
+});
+
+/* ------------------ سجل الأحداث ------------------ */
+async function loadAudit(){
+ $('auditTable').innerHTML=emptyRow(4,'جارٍ التحميل...');
+ try{
+  const d=await api('/api/boss/audit-logs');state.audit=arrayOf(d,'logs','audit_logs','events','data');
+  $('auditTable').innerHTML=state.audit.length?state.audit.map(a=>`<tr>
+   <td>#${esc(idOf(a))}</td><td>${esc(a.action||a.event||a.type||'—')}</td>
+   <td>${esc(a.details||a.description||a.message||'—')}</td><td>${esc(dateOf(a.created_at||a.timestamp))}</td>
+  </tr>`).join(''):emptyRow(4);
+ }catch(e){$('auditTable').innerHTML=emptyRow(4,e.message)}
+}
+
+async function loadOverview(){
+ if(isBoss()||can('viewAllMembers'))await loadMembers();
+ await loadWarnings();
+ await loadAbsences();
+ if(can('manageMeetings'))await loadMeetings();
+}
+
+async function refreshCurrent(){
+ const name=document.querySelector('.page.active')?.id.replace('page-','')||'overview';
+ if(name==='overview')await loadOverview();
+ if(name==='members')await loadMembers();
+ if(name==='store-products')await loadStoreProducts();
+ if(name==='warnings')await loadWarnings();
+ if(name==='absences')await loadAbsences();
+ if(name==='meetings')await loadMeetings();
+ if(name==='audit')await loadAudit();
+}
+
+$('refresh').addEventListener('click',async()=>{
+ const icon=$('refresh').querySelector('i');icon.classList.add('fa-spin');
+ try{await refreshCurrent();toast('اكتمل تحديث البيانات')}
+ finally{setTimeout(()=>icon.classList.remove('fa-spin'),500)}
+});
+
+document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{
+ const a=b.dataset.action;
+ if(a==='members')loadMembers();
+ if(a==='blacklist')loadBlacklist();
+ if(a==='warnings')loadWarnings();
+ if(a==='absences')loadAbsences();
+ if(a==='meetings')loadMeetings();
+ if(a==='audit')loadAudit();
+}));
+
+const clearAuditButton=$('clearAuditLogsBtn');
+if(clearAuditButton)clearAuditButton.addEventListener('click',async()=>{
+ if(!isOwner()){toast('حذف سجل الأحداث متاح للـ BOSS فقط',true);return}
+ if(!confirm('تحذير نهائي: سيتم حذف كل سجلات الأحداث من قاعدة البيانات نهائيًا. لا يمكن التراجع. هل تريد المتابعة؟'))return;
+ const typed=prompt('للتأكيد اكتب DELETE LOGS');if(typed!=='DELETE LOGS')return toast('تم إلغاء العملية.');
+ clearAuditButton.disabled=true;try{const result=await api('/api/boss/audit-logs',{method:'DELETE'});toast(result.message||'تم حذف سجل الأحداث نهائيًا')}catch(err){toast('تعذّر حذف سجل الأحداث: '+err.message,true)}finally{clearAuditButton.disabled=false}
+});
+
+$('logout').addEventListener('click',async()=>{
+ try{await api('/api/logout',{method:'POST',body:JSON.stringify({})})}catch{}
+ location.href='/login.html';
+});
+
+(async()=>{
+ try{
+  await loadMe();
+  if(isBoss()) await loadOverview();
+ }catch(e){
+  toast('تعذر تحميل لوحة التحكم: '+e.message,true);
+  setTimeout(()=>location.href='/login.html',1800);
+ }
+})();
+
+/* Group invitation codes and isolated group prices/products */
+let storeGroupsCache=[];
+async function loadStoreGroups(){
+ if(!can('manageStoreGroups'))return;
+ const body=$('storeGroupsTable');if(!body)return;body.innerHTML=emptyRow(7,'جارٍ التحميل...');
+ try{const d=await api('/api/boss/store/groups');storeGroupsCache=arrayOf(d,'groups','data');
+  body.innerHTML=storeGroupsCache.length?storeGroupsCache.map(g=>`<tr><td><strong>${esc(g.group_name)}</strong><small style="display:block;color:var(--muted)">#${g.id}</small></td><td>${esc(g.group_type)}</td><td>••••${esc(g.code_hint||'')}</td><td>${Number(g.active)?'مفعّل':'معطّل'}</td><td><button class="btn btn-secondary btn-small" data-group-code="${g.id}">تغيير الكود</button> <button class="btn btn-secondary btn-small" data-group-active="${g.id}" data-active="${Number(g.active)?0:1}">${Number(g.active)?'تعطيل':'تفعيل'}</button></td><td><button class="btn btn-primary btn-small" data-group-prices="${g.id}">تعديل أسعار ومنتجات المجموعة</button></td><td><button class="btn btn-danger btn-small" data-group-delete="${g.id}">حذف</button></td></tr>`).join(''):emptyRow(7,'لا توجد مجموعات. أنشئ كودًا لكل مافيا أو جانج.');
+  $('groupPriceSelect').innerHTML='<option value="">اختار مجموعة</option>'+storeGroupsCache.map(g=>`<option value="${g.id}">${esc(g.group_name)} (${esc(g.group_type)})</option>`).join('');
+  if($('bossChatGroupSelect')){const previous=$('bossChatGroupSelect').value;$('bossChatGroupSelect').innerHTML='<option value="">اختار مجموعة</option>'+storeGroupsCache.map(g=>`<option value="${g.id}">${esc(g.group_name)} (${esc(g.group_type)})</option>`).join('');if(previous && storeGroupsCache.some(g=>String(g.id)===previous))$('bossChatGroupSelect').value=previous;}
+ }catch(e){body.innerHTML=emptyRow(7,e.message);toast('تعذر تحميل المجموعات: '+e.message,true)}
+}
+async function loadGroupPrices(id){
+ if(!id){$('groupPricesTable').innerHTML=emptyRow(5,'اختار مجموعة لعرض أسعارها.');return}
+ $('groupPriceSelect').value=String(id);$('groupPricesTable').innerHTML=emptyRow(5,'جارٍ تحميل الأسعار...');
+ try{
+  const d=await api('/api/boss/store/groups/'+id+'/prices');
+  const rows=arrayOf(d,'prices','data');
+  $('groupPricesTable').innerHTML=rows.length?rows.map(p=>`<tr><td>${esc(p.name)}</td><td><input class="price-input" type="number" min="0" max="1000000000" id="gp-price-${esc(p.id)}" value="${Number(p.price)||0}"></td><td><input class="price-input" type="number" min="0" max="100" id="gp-discount-${esc(p.id)}" value="${Number(p.discount_percent)||0}"></td><td>${formatPrice(Number(p.effective_price)||0)} RP</td><td><button class="btn btn-primary btn-small" data-save-group-price="${esc(p.id)}" data-group="${id}">حفظ</button></td></tr>`).join(''):emptyRow(5,'لا توجد منتجات خاصة لهذه المجموعة. أضف منتجات عامة لتظهر هنا وتتحكم بسعرها المستقل.');
+ }catch(e){$('groupPricesTable').innerHTML=emptyRow(5,e.message)}
+}
+$('groupCodeForm')?.addEventListener('submit',async e=>{e.preventDefault();const name=$('groupCodeName').value.trim(),type=$('groupCodeType').value,code=$('groupCodeValue').value.trim();try{const r=await api('/api/boss/store/groups',{method:'POST',body:JSON.stringify({name,type,code})});toast(r.message||'تم إنشاء الكود');alert('كود الدخول الخاص بالمجموعة '+name+':\n\n'+code+'\n\nانسخه وأرسله لأعضاء هذه المجموعة فقط.');$('groupCodeForm').reset();await loadStoreGroups()}catch(err){toast(err.message,true)}});$('refreshStoreGroups')?.addEventListener('click',loadStoreGroups);$('groupPriceSelect')?.addEventListener('change',e=>loadGroupPrices(e.target.value));$('storeGroupsTable')?.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.groupPrices||b.dataset.groupCode||b.dataset.groupActive||b.dataset.groupDelete;if(!id)return;try{if(b.dataset.groupPrices){await loadGroupPrices(id);return}if(b.dataset.groupCode){const code=prompt('اكتب الكود الجديد لهذه المجموعة (4 أحرف على الأقل):');if(code===null)return;const r=await api('/api/boss/store/groups/'+id,{method:'PATCH',body:JSON.stringify({code})});toast(r.message);await loadStoreGroups();return}if(b.dataset.groupActive!==undefined){const r=await api('/api/boss/store/groups/'+id,{method:'PATCH',body:JSON.stringify({active:Number(b.dataset.active)===1})});toast(r.message);await loadStoreGroups();return}if(b.dataset.groupDelete){if(!confirm('حذف المجموعة والكود والأسعار ورسائل المجموعة؟'))return;const r=await api('/api/boss/store/groups/'+id,{method:'DELETE'});toast(r.message);await loadStoreGroups();$('groupPricesTable').innerHTML=emptyRow(5,'اختار مجموعة لعرض أسعارها.')}}catch(err){toast(err.message,true)}});
+$('groupPricesTable')?.addEventListener('click',async e=>{const b=e.target.closest('[data-save-group-price]');if(!b)return;const productId=b.dataset.saveGroupPrice,groupId=b.dataset.group,price=Number($('gp-price-'+productId).value),discountPercent=Number($('gp-discount-'+productId).value);try{const r=await api(`/api/boss/store/groups/${groupId}/prices/${encodeURIComponent(productId)}`,{method:'PUT',body:JSON.stringify({price,discountPercent})});toast(r.message);await loadGroupPrices(groupId)}catch(err){toast(err.message,true)}});
+$('clearStoreChat')?.addEventListener('click',async()=>{if(!confirm('حذف كل رسائل المحادثة نهائيًا؟'))return;try{const r=await api('/api/boss/store/community/messages',{method:'DELETE'});toast(r.message);await loadBossGroupChat()}catch(e){toast(e.message,true)}});
+</script>
+</body>
+</html>

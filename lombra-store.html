@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070507">
+<meta name="description" content="LOMBRA — The Black Empire">
+<title>LOMBRA // THE LEGENDS</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+  --bg:#070507;
+  --panel:#100a0e;
+  --panel2:#190b13;
+  --red:#ff1744;
+  --red-dark:#8f001f;
+  --gold:#b89a65;
+  --ivory:#f0eae0;
+  --muted:#9c8b95;
+  --line:rgba(255,23,68,.22);
+  --radius:15px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px;scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{width:0;height:0;display:none}
+body{
+  min-height:100vh;overflow-x:hidden;
+  background:radial-gradient(ellipse at 50% -20%,rgba(125,0,32,.27),transparent 55%),radial-gradient(ellipse at 100% 50%,rgba(65,0,25,.12),transparent 38%),var(--bg);
+  color:#faf5f7;font-family:'Cairo',sans-serif
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.025;
+  background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,#fff 4px,transparent 5px)
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.12;
+  background-image:linear-gradient(rgba(255,23,68,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(255,23,68,.13) 1px,transparent 1px);
+  background-size:70px 70px;mask-image:linear-gradient(to bottom,black,transparent 85%)
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+::selection{background:var(--red);color:white}
+.container{width:min(1180px,91%);margin:auto}
+.orbitron{font-family:'Orbitron',sans-serif}
+.red{color:var(--red)}
+.gold{color:var(--gold)}
+
+@keyframes pulseGlow{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes slowSpin{to{transform:rotate(360deg)}}
+@keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineTravel{0%{transform:translateX(-150%)}100%{transform:translateX(350%)}}
+@keyframes logoGlitch{
+  0%,7%,9%,12%,48%,50%,52%,78%,80%,100%{transform:translate(0) skew(0);filter:drop-shadow(0 0 8px rgba(255,23,68,.55));clip-path:inset(0 0 0 0)}
+  8%{transform:translate(-9px,2px) skew(-5deg);filter:drop-shadow(8px 0 #ff1744) drop-shadow(-8px 0 #00eaff)}
+  10%{transform:translate(10px,-3px) skew(7deg);filter:drop-shadow(-9px 0 #ff1744) drop-shadow(7px 0 #00eaff);clip-path:inset(18% 0 62% 0)}
+  11%{transform:translate(-4px,1px);clip-path:inset(60% 0 14% 0)}
+  49%{transform:translate(7px,0) skew(3deg);filter:drop-shadow(10px 0 #ff1744) drop-shadow(-10px 0 #00eaff);clip-path:inset(35% 0 40% 0)}
+  51%{transform:translate(-8px,2px) skew(-4deg);clip-path:inset(8% 0 78% 0)}
+  79%{transform:translate(5px,-2px);filter:drop-shadow(-8px 0 #ff1744) drop-shadow(8px 0 #00eaff)}
+} 
+@keyframes hardShake{0%,100%{transform:translate(0)}15%{transform:translate(-3px,2px)}30%{transform:translate(4px,-2px)}45%{transform:translate(-2px,-1px)}60%{transform:translate(3px,1px)}75%{transform:translate(-4px,0)}90%{transform:translate(2px,-2px)}}
+@keyframes scanFlicker{0%,100%{opacity:.15}12%{opacity:.55}13%{opacity:.08}46%{opacity:.32}47%{opacity:.7}48%{opacity:.1}83%{opacity:.5}84%{opacity:.12}}
+@keyframes glitchFlash{0%,88%,90%,100%{opacity:0}89%,91%{opacity:.75}}
+@keyframes emblemAura{from{filter:drop-shadow(0 0 5px rgba(255,23,68,.25))}to{filter:drop-shadow(0 0 23px rgba(255,23,68,.85))}}
+@keyframes scan{from{transform:translateY(-120%)}to{transform:translateY(600%)}}
+@keyframes borderFlow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes signal{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes textReveal{from{opacity:0;letter-spacing:20px;filter:blur(8px)}to{opacity:1;letter-spacing:clamp(4px,1.8vw,15px);filter:blur(0)}}
+@keyframes floating{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* INTRO */
+.intro{
+  position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:18px;background:radial-gradient(ellipse at center,rgba(90,0,24,.28),transparent 48%),#030204;
+  overflow:hidden;isolation:isolate;transition:opacity .8s,visibility .8s
+}
+.intro::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;opacity:.25;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.18) 4px,transparent 5px),linear-gradient(90deg,transparent 0 47%,rgba(255,23,68,.22) 49%,transparent 52%);background-size:100% 5px,100% 100%;animation:scanFlicker .22s steps(2,end) infinite,hardShake .28s steps(2,end) infinite}
+.intro::after{content:"SYSTEM BREACH // LOMBRA NETWORK";position:absolute;top:9%;left:0;width:100%;text-align:center;color:rgba(255,23,68,.55);font:700 10px 'Orbitron',sans-serif;letter-spacing:5px;animation:glitchFlash .9s steps(2,end) infinite;pointer-events:none}
+.intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+.intro-ring{
+  position:absolute;width:min(72vw,460px);aspect-ratio:1;border:1px solid rgba(255,23,68,.2);
+  border-radius:50%;box-shadow:0 0 70px rgba(255,23,68,.07),inset 0 0 60px rgba(255,23,68,.04);
+  animation:pulseGlow 4s ease-in-out infinite
+}
+.intro-ring::before,.intro-ring::after{
+  content:"";position:absolute;inset:22px;border:1px dashed rgba(184,154,101,.2);border-radius:50%;
+  animation:slowSpin 45s linear infinite
+}
+.intro-ring::after{inset:48px;animation-direction:reverse}
+.intro-logo{width:145px;height:145px;object-fit:contain;position:relative;animation:logoGlitch .72s steps(2,end) infinite,emblemAura .65s ease-in-out infinite alternate;filter:drop-shadow(0 0 18px rgba(255,23,68,.9))}
+.intro h1{position:relative;font:900 clamp(30px,7vw,48px) 'Orbitron',sans-serif;letter-spacing:8px;text-shadow:3px 0 #ff1744,-3px 0 #00eaff,0 0 30px rgba(255,23,68,.8);animation:hardShake .18s steps(2,end) infinite}
+.intro p{position:relative;color:var(--gold);font:9px 'Orbitron',sans-serif;letter-spacing:4px;text-align:center;text-shadow:2px 0 #ff1744,-2px 0 #00eaff;animation:scanFlicker .35s steps(2,end) infinite}
+.intro-loader{width:190px;height:2px;position:relative;overflow:hidden;background:#29101b}
+.intro-loader::after{content:"";position:absolute;inset:0 auto 0 0;width:35%;background:var(--red);box-shadow:0 0 16px var(--red);animation:lineTravel 1.5s ease-in-out infinite}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:500;background:rgba(7,5,7,.88);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{width:48px;height:48px;object-fit:contain;animation:logoGlitch 5s infinite,emblemAura 2s ease-in-out infinite alternate}
+.brand-title{font:900 18px 'Orbitron',sans-serif;letter-spacing:2px;white-space:nowrap}
+.brand-title span{color:var(--red)}
+.brand-sub{color:var(--gold);font:8px 'Orbitron',sans-serif;letter-spacing:2.5px;margin-top:5px}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{color:#c7b8c1;font-size:12px;transition:.25s;position:relative;padding:8px 0}
+.nav-links a::after{content:"";position:absolute;bottom:0;right:0;width:0;height:1px;background:var(--red);box-shadow:0 0 10px var(--red);transition:width .25s}
+.nav-links a:hover{color:white}
+.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  position:relative;display:grid;place-items:center;width:41px;height:41px;color:white;
+  background:linear-gradient(145deg,#1b1018,#0b080b);border:1px solid var(--line);border-radius:9px;transition:.25s
+}
+.icon-btn:hover{transform:translateY(-3px);border-color:var(--red);box-shadow:0 0 22px rgba(255,23,68,.17)}
+.cart-count{
+  position:absolute;top:-7px;right:-6px;display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;
+  border-radius:20px;background:var(--red);color:white;border:2px solid var(--bg);font:700 10px 'Orbitron',sans-serif
+}
+
+/* HERO */
+.hero{min-height:610px;position:relative;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(7,5,7,.05),rgba(7,5,7,.15),#070507 90%),radial-gradient(ellipse at 12% 50%,rgba(255,0,45,.19),transparent 48%)
+}
+.hero-grid{position:absolute;inset:0;opacity:.13;background-image:linear-gradient(rgba(255,23,68,.32) 1px,transparent 1px),linear-gradient(90deg,rgba(255,23,68,.32) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to left,black,transparent 95%)}
+.hero-scan{position:absolute;top:0;left:0;width:100%;height:70px;background:linear-gradient(transparent,rgba(255,23,68,.07),transparent);animation:scan 9s linear infinite;pointer-events:none}
+.hero-logo{position:absolute;left:5%;top:50%;width:min(32vw,370px);max-height:430px;object-fit:contain;opacity:.78;transform:translateY(-50%);animation:logoGlitch 6s infinite,emblemAura 2.4s ease-in-out infinite alternate;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:690px;padding:85px 0;animation:riseIn .9s ease both}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font:10px 'Orbitron',sans-serif;letter-spacing:3px;margin-bottom:24px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--red);box-shadow:0 0 12px var(--red)}
+.hero h1{font-size:clamp(40px,7.5vw,84px);line-height:1.15;font-weight:900;margin-bottom:22px;letter-spacing:-2px}
+.hero h1 span{color:var(--red);text-shadow:0 0 25px rgba(255,23,68,.28),0 0 65px rgba(255,23,68,.1)}
+.hero-description{max-width:500px;color:#b9a8b3;font-size:13px;line-height:2.2;margin-bottom:30px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:13px 21px;border:1px solid var(--line);border-radius:7px;font-size:12px;font-weight:800;transition:.25s}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary{color:white;border-color:var(--red);background:linear-gradient(115deg,#920020,#ff1744);box-shadow:0 6px 25px rgba(255,23,68,.17)}
+.btn-primary:hover{box-shadow:0 8px 32px rgba(255,23,68,.35)}
+.btn-secondary{color:white;background:rgba(19,12,19,.8)}
+.btn-secondary:hover{border-color:var(--red)}
+
+/* STRIP */
+.tech-strip{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(16,8,14,.75)}
+.tech-track{display:flex;align-items:center;justify-content:space-around;gap:25px;padding:17px 3%;flex-wrap:wrap}
+.tech-item{display:flex;align-items:center;gap:9px;color:#c6b4bf;font:9px 'Orbitron',sans-serif;letter-spacing:1.5px}
+.tech-item i{color:var(--red)}
+
+/* SECTIONS */
+section{scroll-margin-top:100px}
+.section{padding:82px 0}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:32px}
+.section-kicker{font:9px 'Orbitron',sans-serif;color:var(--red);letter-spacing:3px;margin-bottom:12px}
+.section-heading h2{font-size:clamp(25px,4vw,39px);font-weight:900}
+.section-heading p{color:var(--muted);font-size:12px;margin-top:7px;line-height:1.9}
+.section-counter{font:10px 'Orbitron',sans-serif;color:#a895a2;letter-spacing:2px;white-space:nowrap}
+.section-counter span{color:var(--red)}
+
+/* PRODUCTS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px;perspective:1200px}
+.product-card{
+  min-width:0;position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(145deg,rgba(30,16,29,.96),rgba(10,7,11,.98) 65%);
+  border:1px solid rgba(255,23,68,.22);border-radius:var(--radius);transform-style:preserve-3d;
+  transition:transform .32s,border-color .3s,box-shadow .3s
+}
+.product-card::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,23,68,.15),transparent 48%);transition:opacity .3s}
+.product-card:hover{transform:translateY(-7px);border-color:rgba(255,23,68,.75);box-shadow:0 20px 45px rgba(0,0,0,.28),0 0 28px rgba(255,23,68,.08)}
+.product-card:hover::before{opacity:1}
+.product-image{position:relative;height:235px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at center,rgba(255,23,68,.15),transparent 65%),linear-gradient(135deg,#160c15,#0b080d);border-bottom:1px solid rgba(255,23,68,.18)}
+.product-image::before{content:"";position:absolute;width:150px;height:150px;border:1px solid rgba(255,23,68,.13);transform:rotate(45deg);transition:.5s}
+.product-card:hover .product-image::before{transform:rotate(135deg) scale(1.15);border-color:rgba(255,23,68,.4)}
+.product-image img{position:relative;z-index:1;width:85%;height:85%;object-fit:contain;filter:drop-shadow(0 12px 15px rgba(0,0,0,.65));transition:transform .45s,filter .35s}
+.product-card:hover .product-image img{transform:translateY(-5px) scale(1.08);filter:drop-shadow(0 0 17px rgba(255,23,68,.22))}
+.product-tag{position:absolute;z-index:2;top:14px;right:14px;padding:6px 9px;color:#ff8b9e;background:rgba(32,7,17,.82);border:1px solid rgba(255,23,68,.32);border-radius:4px;font:8px 'Orbitron',sans-serif;letter-spacing:1px}
+.product-index{position:absolute;z-index:2;left:13px;top:14px;color:rgba(255,255,255,.3);font:10px 'Orbitron',sans-serif}
+.product-body{padding:20px}
+.product-body h3{font:700 16px 'Orbitron',sans-serif;letter-spacing:.3px;margin-bottom:9px}
+.product-description{color:var(--muted);font-size:11px;line-height:1.8;min-height:20px;margin-bottom:18px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:14px;border-top:1px solid rgba(255,23,68,.12)}
+.price{color:#ff718b;font-size:14px;font-weight:900}
+.add-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--red);background:rgba(255,23,68,.1);color:white;padding:9px 12px;border-radius:6px;font-size:10px;font-weight:800;transition:.2s}
+.add-btn:hover{background:var(--red);box-shadow:0 0 18px rgba(255,23,68,.25);transform:translateY(-1px)}
+.custom-hint{color:var(--muted);font-size:10px;margin-bottom:9px;line-height:1.8}
+.custom-money{position:relative;z-index:3;margin-bottom:14px;pointer-events:auto}
+.custom-money input{position:relative;z-index:4;display:block;width:100%;min-width:0;background:#080609;color:white;border:1px solid #43202e;border-radius:7px;padding:12px;direction:ltr;text-align:left;pointer-events:auto;user-select:text;-webkit-user-select:text;cursor:text}
+.custom-money input:focus{border-color:var(--red);outline:2px solid rgba(255,23,68,.18)}
+
+/* FEATURES */
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.feature{position:relative;padding:27px;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#180e17,#0d090e);transition:.3s}
+.feature:hover{transform:translateY(-5px);border-color:rgba(255,23,68,.6)}
+.feature::after{content:"";position:absolute;bottom:0;right:0;width:65px;height:2px;background:var(--red);box-shadow:0 0 18px var(--red)}
+.feature i{display:grid;place-items:center;width:47px;height:47px;border:1px solid var(--line);border-radius:10px;background:rgba(255,23,68,.08);color:var(--red);font-size:19px;margin-bottom:19px}
+.feature h3{font-size:15px;margin-bottom:9px}
+.feature p{color:var(--muted);font-size:11px;line-height:2}
+
+/* CINEMATIC LOMBRA SIGNATURE */
+.empire-section{
+  position:relative;isolation:isolate;overflow:hidden;padding:105px 0 90px;
+  background:radial-gradient(ellipse at 50% 48%,rgba(133,0,31,.23),transparent 52%),linear-gradient(180deg,#080508,#0d070b 48%,#070507);
+  border-block:1px solid rgba(255,23,68,.28)
+}
+.empire-section::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background-image:linear-gradient(rgba(255,23,68,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,23,68,.07) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(ellipse at center,black,transparent 75%)
+}
+.empire-section::after{
+  content:"";position:absolute;inset:17px 3%;border:1px solid rgba(184,154,101,.13);pointer-events:none;
+  clip-path:polygon(0 0,18% 0,20% 2px,80% 2px,82% 0,100% 0,100% 100%,82% 100%,80% calc(100% - 2px),20% calc(100% - 2px),18% 100%,0 100%)
+}
+.empire-content{
+  position:relative;width:min(850px,100%);margin:auto;display:flex;flex-direction:column;
+  align-items:center;text-align:center;padding:25px 15px;gap:18px
+}
+.empire-overline{display:flex;align-items:center;justify-content:center;gap:15px;color:var(--gold);font:9px 'Orbitron',sans-serif;letter-spacing:4px}
+.empire-overline::before,.empire-overline::after{content:"";width:clamp(24px,8vw,95px);height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.empire-overline::after{transform:rotate(180deg)}
+.empire-emblem-wrap{position:relative;width:190px;height:190px;display:grid;place-items:center;margin:10px 0 8px;animation:floating 5s ease-in-out infinite}
+.empire-orbit{position:absolute;inset:5px;border:1px solid rgba(184,154,101,.4);transform:rotate(45deg);box-shadow:0 0 25px rgba(184,154,101,.05);animation:slowSpin 45s linear infinite}
+.empire-orbit::before,.empire-orbit::after{content:"";position:absolute;inset:13px;border:1px dashed rgba(255,23,68,.5)}
+.empire-orbit::after{inset:28px;border-color:rgba(184,154,101,.26)}
+.empire-circle{position:absolute;inset:27px;border-radius:50%;border:1px solid rgba(255,23,68,.48);box-shadow:0 0 45px rgba(255,23,68,.12),inset 0 0 30px rgba(255,23,68,.08);animation:pulseGlow 4s ease-in-out infinite}
+.empire-logo{position:relative;width:116px;height:116px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(255,23,68,.4));animation:logoGlitch 6s infinite,emblemAura 2.5s ease-in-out infinite alternate}
+.empire-diamond{position:absolute;width:9px;height:9px;background:var(--gold);transform:rotate(45deg);box-shadow:0 0 13px rgba(184,154,101,.7)}
+.empire-diamond.d1{top:0;left:50%}.empire-diamond.d2{bottom:0;left:50%}.empire-diamond.d3{right:0;top:50%}.empire-diamond.d4{left:0;top:50%}
+.empire-title{direction:ltr;font:900 clamp(35px,8vw,76px) 'Orbitron',sans-serif;letter-spacing:clamp(4px,1.8vw,15px);line-height:1.2;color:var(--ivory);text-shadow:0 0 25px rgba(255,23,68,.2),0 0 65px rgba(255,23,68,.08);animation:textReveal 1.2s ease both}
+.empire-title span{color:var(--red)}
+.empire-subtitle{direction:ltr;color:var(--gold);font:600 clamp(9px,2vw,12px) 'Orbitron',sans-serif;letter-spacing:clamp(3px,1vw,8px)}
+.empire-motto{color:#b5a5ae;font-size:12px;letter-spacing:1px;margin-top:4px;line-height:2.2}
+.empire-rule{display:flex;align-items:center;justify-content:center;gap:12px;width:min(360px,80%);margin-top:8px}
+.empire-rule::before,.empire-rule::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#7d1827)}
+.empire-rule::after{transform:rotate(180deg)}
+.empire-rule span{color:var(--gold);font-size:10px}
+.empire-coordinates{direction:ltr;color:rgba(255,255,255,.35);font:8px 'Orbitron',sans-serif;letter-spacing:3px;margin-top:3px}
+.empire-footer-note{color:rgba(255,255,255,.4);font-size:10px;letter-spacing:2px;margin-top:3px}
+.empire-stats{display:grid;grid-template-columns:repeat(3,1fr);width:min(580px,100%);gap:12px;margin-top:24px}
+.empire-stat{position:relative;padding:17px 10px;background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,23,68,.035));border:1px solid rgba(255,23,68,.16)}
+.empire-stat strong{display:block;color:var(--ivory);font:700 11px 'Orbitron',sans-serif;letter-spacing:1px;margin-bottom:7px}
+.empire-stat span{display:block;color:var(--muted);font-size:10px}
+.empire-stat::before{content:"";position:absolute;top:-1px;left:25%;right:25%;height:1px;background:var(--gold);opacity:.65}
+.empire-bottom-line{width:min(520px,90%);height:2px;overflow:hidden;background:rgba(255,23,68,.12);margin-top:12px}
+.empire-bottom-line span{display:block;width:35%;height:100%;background:var(--red);box-shadow:0 0 14px var(--red);animation:lineTravel 4s ease-in-out infinite}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);background:#060407;padding:38px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-brand{font:900 18px 'Orbitron',sans-serif;letter-spacing:2px;margin-bottom:9px}
+.footer-brand span{color:var(--red)}
+footer p{color:var(--muted);font-size:10px;line-height:2}
+.footer-social{display:flex;gap:9px}
+
+/* CART */
+.overlay{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.78);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:.25s}
+.overlay.active{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;left:0;bottom:0;z-index:901;display:flex;flex-direction:column;width:min(455px,100%);background:linear-gradient(160deg,#150b14,#080609 65%);border-right:1px solid rgba(255,23,68,.35);box-shadow:15px 0 55px rgba(0,0,0,.35);transform:translateX(-105%);transition:transform .32s}
+.drawer.active{transform:translateX(0)}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:23px;border-bottom:1px solid var(--line)}
+.drawer-header h2{font-size:18px}
+.drawer-header h2 i{color:var(--red);margin-left:7px}
+.close-btn{flex:0 0 auto;display:grid;place-items:center;width:38px;height:38px;color:white;background:#190c15;border:1px solid var(--line);border-radius:8px}
+.close-btn:hover{background:#35101f;border-color:var(--red)}
+.cart-items{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:18px 22px}
+.cart-item{display:flex;align-items:center;gap:13px;padding:15px 0;border-bottom:1px solid rgba(255,23,68,.14)}
+.cart-item img{flex:0 0 auto;width:65px;height:65px;object-fit:contain;border:1px solid var(--line);border-radius:9px;background:#100a10}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-info h4{font-size:12px;margin-bottom:5px;overflow-wrap:anywhere}
+.cart-item-info p{font-size:11px;color:#ff718b;font-weight:800}
+.cart-item-info small{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+.remove-item{display:grid;place-items:center;width:34px;height:34px;color:#ff5d79;background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.25);border-radius:7px}
+.remove-item:hover{background:rgba(255,23,68,.2)}
+.empty{text-align:center;color:var(--muted);padding:45px 15px;font-size:12px;line-height:2}
+.empty i{display:block;color:#6a1b32;font-size:37px;margin-bottom:15px}
+.drawer-footer{padding:20px 22px;border-top:1px solid var(--line);background:rgba(6,4,7,.8)}
+.total-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:17px;font-size:13px;font-weight:800}
+.total-row strong{color:#ff718b;font:700 17px 'Orbitron',sans-serif;direction:ltr;text-align:left;overflow-wrap:anywhere}
+.drawer-footer .btn{width:100%}
+.drawer-note{color:var(--muted);font-size:10px;line-height:1.9;margin-top:12px}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;z-index:950;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+.modal-overlay.active{display:flex}
+.modal{width:min(510px,100%);max-height:90vh;overflow-y:auto;background:linear-gradient(145deg,#180e18,#0b080c);border:1px solid rgba(255,23,68,.4);border-radius:14px;padding:25px;box-shadow:0 20px 90px rgba(0,0,0,.5),0 0 30px rgba(255,23,68,.08)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.modal h2{font-size:18px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:11px;color:#d7c8d0;margin-bottom:8px}
+.form-group input,.form-group textarea{display:block;width:100%;padding:12px;color:white;background:#090609;border:1px solid #3a1b2a;border-radius:7px}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--red);outline:none}
+.form-group textarea{min-height:85px;resize:vertical}
+.modal .btn{width:100%}
+.notice{padding:13px;color:#c6b3bf;background:rgba(255,23,68,.045);border:1px solid rgba(255,23,68,.17);border-radius:8px;font-size:10px;line-height:2;margin-bottom:16px}
+.status{display:inline-block;color:#ffbdc9;background:#2b0c17;border:1px solid #552032;padding:4px 9px;border-radius:4px;font-size:10px}
+.order-card{padding:15px;margin-bottom:11px;background:#0b080c;border:1px solid var(--line);border-radius:9px}
+.order-card h4{font-size:12px;margin-bottom:7px}
+.order-card p{font-size:10px;color:var(--muted);line-height:2;overflow-wrap:anywhere}
+.order-card .status{margin-top:9px}
+.toast{position:fixed;bottom:24px;right:50%;transform:translate(50%,25px);z-index:2000;width:max-content;max-width:calc(100% - 30px);padding:13px 19px;color:white;background:rgba(22,10,18,.96);border:1px solid var(--red);border-radius:9px;box-shadow:0 0 30px rgba(255,23,68,.16);text-align:center;font-size:11px;opacity:0;visibility:hidden;transition:.25s}
+.toast.show{opacity:1;visibility:visible;transform:translate(50%,0)}
+
+/* RESPONSIVE */
+@media(max-width:950px){
+  .nav-links{gap:13px}.nav-links a{font-size:11px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-logo{left:0;width:34vw;opacity:.4}
+}
+@media(max-width:700px){
+  .nav{min-height:69px}.nav-links{display:none}
+  .brand img{width:42px;height:42px}.brand-title{font-size:14px}.brand-sub{font-size:7px;letter-spacing:1.5px}
+  .nav-actions{gap:5px}.icon-btn{width:37px;height:37px}
+  .hero{min-height:530px}.hero-content{padding:65px 0}.hero h1{font-size:clamp(38px,10vw,58px)}
+  .hero-description{font-size:12px}.hero-logo{width:55vw;left:-12%;opacity:.2}
+  .tech-track{justify-content:flex-start;gap:18px}.tech-item{font-size:8px}
+  .section{padding:60px 0}.section-heading{align-items:flex-start;flex-direction:column}
+  .features{grid-template-columns:1fr}.empire-section{padding:70px 0}
+  .empire-emblem-wrap{width:155px;height:155px}.empire-logo{width:95px;height:95px}
+}
+@media(max-width:480px){
+  .container{width:91%}.products{grid-template-columns:1fr;gap:17px}
+  .product-image{height:240px}.product-body{padding:18px}
+  .hero-buttons{display:grid;grid-template-columns:1fr}.hero-buttons .btn{width:100%}
+  .intro-logo{width:125px;height:125px}.intro h1{letter-spacing:5px}
+  .intro p{font-size:8px;letter-spacing:2px}
+  .footer-inner{align-items:flex-start;flex-direction:column}.modal{padding:19px}
+  .drawer-header{padding:18px}.cart-items{padding:15px}
+  .empire-emblem-wrap{width:130px;height:130px}.empire-logo{width:78px;height:78px}
+  .empire-motto{font-size:10px}.empire-overline{letter-spacing:2px;font-size:8px}
+  .empire-stats{gap:6px}.empire-stat{padding:14px 5px}
+  .empire-stat strong{font-size:9px}.empire-stat span{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+
+<body>
+<div class="intro" id="intro">
+  <div class="intro-ring"></div>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;top:50%;height:2px;background:linear-gradient(90deg,transparent,#ff1744,#00eaff,transparent);box-shadow:0 0 24px #ff1744;animation:scan .8s linear infinite;pointer-events:none"></div>
+  <img class="intro-logo" src="logo.png" alt="LOMBRA Logo">
+  <h1>LOMBRA</h1>
+  <p>ENTER THE LEGENDS</p>
+  <div class="intro-loader"></div>
+</div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="LOMBRA الرئيسية">
+      <img src="logo.png" alt="LOMBRA">
+      <div><div class="brand-title">LOM<span>BRA</span></div><div class="brand-sub">THE LEGENDS</div></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#home">الرئيسية</a><a href="#store">المتجر</a><a href="#features">المميزات</a><a href="#footer">التواصل</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="logoutStore()" title="تسجيل الخروج من المتجر" aria-label="تسجيل الخروج من المتجر"><i class="fa-solid fa-right-from-bracket"></i></button>
+      <button class="icon-btn" onclick="openCart()" title="السلة" aria-label="السلة"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-grid"></div><div class="hero-scan"></div>
+  <img class="hero-logo" src="logo.png" alt="LOMBRA emblem">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">THE LEGENDS // ROLEPLAY</div>
+      <h1>WELCOME TO<br><span>LOMBRA STORE</span></h1>
+      <p class="hero-description">ادخل إلى عالم LOMBRA. تجربة استثنائية تجمع بين الفخامة، الظلام، والتفاصيل السينمائية. اكتشف المجموعة الحصرية واختر ما يناسبك من قلب الإمبراطورية.</p>
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="#store"><i class="fa-solid fa-bolt"></i> اكتشف المتجر</a>
+        <button class="btn btn-secondary" onclick="openCart()"><i class="fa-solid fa-bag-shopping"></i> سلة المشتريات</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tech-strip"><div class="tech-track">
+  <div class="tech-item"><i class="fa-solid fa-crown"></i> THE LEGENDS</div>
+  <div class="tech-item"><i class="fa-solid fa-gem"></i> EXCLUSIVE COLLECTION</div>
+  <div class="tech-item"><i class="fa-solid fa-bolt"></i> PREMIUM EXPERIENCE</div>
+  <div class="tech-item"><i class="fa-solid fa-display"></i> DESKTOP & MOBILE</div>
+</div></div>
+
+<section class="section" id="store">
+  <div class="container">
+    <div class="section-heading">
+      <div><div class="section-kicker">THE PRIVATE COLLECTION</div><h2>المتجر <span class="red">الاسود</span></h2><p>اكتشف المجموعة واختر منتجاتك من قلب LOMBRA.</p></div>
+      <div class="section-counter">COLLECTION <span>// 05</span></div>
+    </div>
+    <div class="products" id="products"></div>
+  </div>
+</section>
+
+<!-- LOMBRA SIGNATURE -->
+<section class="empire-section" aria-label="LOMBRA Black Empire">
+  <div class="container">
+    <div class="empire-content">
+      <div class="empire-overline">THE LEGACY OF DARKNESS</div>
+      <div class="empire-emblem-wrap">
+        <div class="empire-orbit"></div><div class="empire-circle"></div>
+        <img class="empire-logo" src="logo.png" alt="LOMBRA Empire">
+        <span class="empire-diamond d1"></span><span class="empire-diamond d2"></span>
+        <span class="empire-diamond d3"></span><span class="empire-diamond d4"></span>
+      </div>
+      <h2 class="empire-title">LOM<span>BRA</span></h2>
+      <div class="empire-subtitle">B L A C K&nbsp; E M P I R E</div>
+      <p class="empire-motto">WE DON'T FOLLOW THE LEGACY.<br>WE CREATE IT.</p>
+      <div class="empire-rule"><span>◆</span></div>
+      <div class="empire-coordinates">LMBR — EST. THE LEGENDS</div>
+      <p class="empire-footer-note">THE LEGENDS NEVER FALL</p>
+
+      <div class="empire-stats">
+        <div class="empire-stat"><strong>EXCLUSIVE</strong><span>مجموعة مميزة</span></div>
+        <div class="empire-stat"><strong>PREMIUM</strong><span>تجربة راقية</span></div>
+        <div class="empire-stat"><strong>THE LEGENDS</strong><span>عالم الرول بلاي</span></div>
+      </div>
+      <div class="empire-bottom-line"><span></span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="footer">
+  <div class="container footer-inner">
+    <div><div class="footer-brand">LOM<span>BRA</span></div><p>THE LEGENDS // NINOU<br>THE LEGENDS ROLEPLAY</p></div>
+    <div class="footer-social">
+      <a class="icon-btn" href="#home" aria-label="الرئيسية"><i class="fa-solid fa-house"></i></a>
+      <button class="icon-btn" onclick="openProfile()" aria-label="الملف الشخصي"><i class="fa-solid fa-user"></i></button>
+      <button class="icon-btn" onclick="openCart()" aria-label="السلة"><i class="fa-solid fa-bag-shopping"></i></button>
+    </div>
+    <p>© <span id="year"></span> LOMBRA. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<aside class="drawer" id="cartDrawer" aria-label="سلة المشتريات">
+  <div class="drawer-header"><h2><i class="fa-solid fa-bag-shopping"></i> سلة المشتريات</h2><button class="close-btn" onclick="closeCart()" aria-label="إغلاق السلة"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-footer">
+    <div class="total-row"><span>المجموع الإجمالي</span><strong id="cartTotal">0 RP</strong></div>
+    <button class="btn btn-primary" onclick="checkout()"><i class="fa-solid fa-check"></i> إرسال الطلب للسيرفر</button>
+    <p class="drawer-note">يتم حفظ الطلب في قاعدة بيانات السيرفر ليظهر مباشرة في لوحة إدارة المافيا.</p>
+  </div>
+</aside>
+
+<div class="modal-overlay" id="modalOverlay" onclick="modalOutside(event)"><div class="modal" id="modalContent"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+let products=[
+  {id:"pdw",name:"PDW",price:3500,image:"pdw.png",description:"منتج من مجموعة المتجر",tag:"FEATURED"},
+  {id:"ak47",name:"AK-47",price:8500,image:"ak47.png",description:"منتج من مجموعة المتجر",tag:"POPULAR"},
+  {id:"combat-pistol",name:"COMBAT PISTOL",price:2500,image:"combat-pistol.png",description:"منتج من مجموعة المتجر",tag:"COLLECTION"},
+  {id:"micro-smg",name:"MICRO SMG",price:5000,image:"micro-smg.png",description:"منتج من مجموعة المتجر",tag:"FEATURED"},
+  {id:"dirty-money",name:"DIRTY MONEY",price:0,image:"marked.money.png",description:"THE LEGENDS // COLLECTION",tag:"EXCLUSIVE",customAmount:true}
+];
+
+const CART_KEY="lombra_cart",ORDERS_KEY="lombra_orders",USER_KEY="lombra_user";
+function readStorage(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
+
+let cart=readStorage(CART_KEY,[]),orders=readStorage(ORDERS_KEY,[]),user=readStorage(USER_KEY,{name:"",discord:""});
+if(!Array.isArray(cart))cart=[];
+if(!Array.isArray(orders))orders=[];
+if(!user||typeof user!=="object")user={name:"",discord:""};
+
+function saveStorage(){
+  try{
+    localStorage.setItem(CART_KEY,JSON.stringify(cart));
+    localStorage.setItem(ORDERS_KEY,JSON.stringify(orders));
+    localStorage.setItem(USER_KEY,JSON.stringify(user));
+  }catch(error){console.error(error)}
+}
+
+function money(value){return new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(Number(value)||0)+" RP"}
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
+
+/* مزامنة أسعار المنتجات مع السيرفر — دون إعادة إنشاء خانة المبلغ أثناء الكتابة */
+let isLoadingProducts=false;
+async function loadProductsFromServer(){
+  if(isLoadingProducts)return;
+  isLoadingProducts=true;
+  try{
+    const response=await fetch("/api/store/products",{method:"GET",cache:"no-store",headers:{"Accept":"application/json"}});
+    if(!response.ok)throw new Error("HTTP "+response.status);
+    const result=await response.json();
+    if(result.success!==true||!Array.isArray(result.products))throw new Error("Invalid response");
+
+    const existingById=new Map(products.map(item=>[String(item.id).toLowerCase(),item]));
+    const merged=[];
+    result.products.forEach(remote=>{
+      if(!remote||remote.id==null)return;
+      const id=String(remote.id);
+      const previous=existingById.get(id.toLowerCase());
+      const price=Number(remote.price);
+      if(!Number.isSafeInteger(price)||price<0)return;
+      const isDirtyMoney=id.toLowerCase()==="dirty-money" ||
+        String(remote.name||previous?.name||"").trim().toLowerCase()==="dirty money";
+      const customFlag=remote.custom_amount===true || remote.custom_amount===1 ||
+        String(remote.custom_amount).toLowerCase()==="true" || String(remote.custom_amount)==="1";
+      merged.push({
+        ...(previous||{}),
+        id,
+        name:String(remote.name||previous?.name||(isDirtyMoney?"DIRTY MONEY":"منتج جديد")),
+        price,
+        image:String(remote.image||previous?.image||(isDirtyMoney?"marked.money.png":"")),
+        description:String(remote.description||previous?.description||(isDirtyMoney?"THE LEGENDS // COLLECTION":"منتج من مجموعة المتجر")),
+        tag:previous?.tag||(isDirtyMoney?"EXCLUSIVE":(Number(remote.discount_percent)>0?"OFFER":"NEW ARRIVAL")),
+        customAmount:isDirtyMoney || customFlag || Boolean(previous?.customAmount),
+        discountPercent:Number(remote.discount_percent)||0,
+        effectivePrice:Number.isSafeInteger(Number(remote.effective_price))?Number(remote.effective_price):price
+      });
+    });
+
+    // لا نفقد بطاقة DIRTY MONEY إذا لم يُرجعها السيرفر مؤقتًا؛ تبقى بقية المنتجات من قاعدة البيانات.
+    const hasDirtyMoney=merged.some(item=>String(item.id).toLowerCase()==="dirty-money" || String(item.name).trim().toLowerCase()==="dirty money");
+    if(!hasDirtyMoney){
+      const localDirtyMoney=existingById.get("dirty-money");
+      if(localDirtyMoney)merged.push({...localDirtyMoney,id:"dirty-money",name:"DIRTY MONEY",image:localDirtyMoney.image||"marked.money.png",customAmount:true});
+    }
+
+    products=merged;
+    cart=cart.map(item=>{
+      const product=products.find(p=>String(p.id)===String(item.productId));
+      if(!product)return item;
+      if(product.customAmount)return {...item,name:product.name,image:product.image};
+      return {...item,name:product.name,image:product.image,price:product.effectivePrice??product.price};
+    });
+    saveStorage();
+
+    // التحديث الدوري لا يبدّل DOM والخانة النشطة؛ هذا يمنع فقدان الكتابة أو المؤشر.
+    const active=document.activeElement;
+    const amountInputFocused=!!(active && active.matches && active.matches(".custom-money input"));
+    if(!amountInputFocused)renderProducts();
+    renderCart();
+  }catch(error){console.warn("LOMBRA: تعذرت مزامنة المنتجات؛ بقيت المنتجات الحالية كما هي.",error)}
+  finally{isLoadingProducts=false}
+}
+
+function renderProducts(){
+  const root=document.getElementById("products");
+  if(!root)return;
+  const currentInput=document.activeElement && document.activeElement.matches(".custom-money input") ? document.activeElement : null;
+  const currentId=currentInput?.id||"";
+  const currentValue=currentInput?.value??"";
+  root.innerHTML=products.map((product,index)=>{
+    const isDirtyMoney=Boolean(product.customAmount) || String(product.id).toLowerCase()==="dirty-money" || String(product.name).trim().toLowerCase()==="dirty money";
+    const productId=String(product.id);
+    return `
+    <article class="product-card">
+      <div class="product-image">
+        <span class="product-tag">${escapeHTML(product.tag||"COLLECTION")}</span>
+        <span class="product-index">${String(index+1).padStart(2,"0")}</span>
+        <img src="${escapeHTML(product.image||"")}" alt="${escapeHTML(product.name)}" loading="${index>2?"lazy":"eager"}" onerror="this.style.opacity='.12';this.style.filter='grayscale(1)'">
+      </div>
+      <div class="product-body">
+        <h3>${escapeHTML(product.name)}</h3><p class="product-description">${escapeHTML(product.description||"منتج من مجموعة المتجر")}</p>
+        ${isDirtyMoney?`<p class="custom-hint">أدخل المبلغ من 1 إلى 1,000,000,000 RP</p><div class="custom-money"><input id="amount-${escapeHTML(productId)}" type="number" min="1" max="1000000000" step="1" inputmode="numeric" autocomplete="off" placeholder="Enter amount" aria-label="مبلغ DIRTY MONEY"></div>`:""}
+        <div class="product-bottom"><div class="price">${isDirtyMoney?"مبلغ مخصص":money(product.effectivePrice??product.price)}</div><button class="add-btn" onclick="addToCart('${escapeHTML(productId)}')"><i class="fa-solid fa-plus"></i> أضف للسلة</button></div>
+      </div>
+    </article>`;
+  }).join("");
+  setupCardEffects();
+  if(currentId){
+    const restored=document.getElementById(currentId);
+    if(restored){restored.value=currentValue;restored.focus({preventScroll:true});try{restored.setSelectionRange(currentValue.length,currentValue.length)}catch{}}
+  }
+}
+
+function setupCardEffects(){
+  document.querySelectorAll(".product-card").forEach(card=>{
+    card.addEventListener("pointermove",event=>{
+      if(event.pointerType!=="mouse")return;
+      const rect=card.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top,cx=rect.width/2,cy=rect.height/2;
+      card.style.setProperty("--mx",x+"px");card.style.setProperty("--my",y+"px");
+      card.style.transform=`perspective(1000px) rotateX(${((cy-y)/cy)*2.2}deg) rotateY(${((x-cx)/cx)*2.2}deg) translateY(-5px)`;
+    });
+    card.addEventListener("pointerleave",()=>{card.style.transform=""});
+  });
+}
+
+function addToCart(productId){
+  const product=products.find(item=>item.id===productId);if(!product)return;
+  let amount=product.price;
+  if(product.customAmount || String(product.id).toLowerCase()==="dirty-money" || String(product.name).trim().toLowerCase()==="dirty money"){
+    const input=document.getElementById("amount-"+product.id);amount=Number(input?.value);
+    if(!Number.isSafeInteger(amount)||amount<1||amount>1000000000){showToast("أدخل مبلغًا صحيحًا بين 1 و 1,000,000,000.");input?.focus();return}
+  }
+  cart.push({cartId:Date.now().toString(36)+Math.random().toString(36).slice(2,8),productId:product.id,name:product.name,image:product.image,price:amount,quantity:1});
+  saveStorage();renderCart();showToast("تمت إضافة "+product.name+" إلى السلة.");
+  if(product.customAmount)document.getElementById("amount-"+product.id).value="";
+}
+function removeFromCart(cartId){cart=cart.filter(item=>item.cartId!==cartId);saveStorage();renderCart();showToast("تم حذف المنتج من السلة.")}
+
+function renderCart(){
+  const root=document.getElementById("cartItems");if(!root)return;
+  const count=cart.reduce((sum,item)=>sum+(Number(item.quantity)||0),0);
+  const total=cart.reduce((sum,item)=>sum+(Number(item.price)||0)*(Number(item.quantity)||0),0);
+  document.getElementById("cartCount").textContent=count;
+  document.getElementById("cartTotal").textContent=money(total);
+  if(!cart.length){root.innerHTML=`<div class="empty"><i class="fa-solid fa-bag-shopping"></i>سلة المشتريات فارغة حاليًا.<br>ارجع إلى المتجر لاختيار منتجاتك.</div>`;return}
+  root.innerHTML=cart.map(item=>`
+    <div class="cart-item">
+      <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)}" onerror="this.style.opacity='.15'">
+      <div class="cart-item-info"><h4>${escapeHTML(item.name)}</h4><p>${money(item.price)}</p><small>الكمية: ${Number(item.quantity)||1}</small></div>
+      <button class="remove-item" onclick="removeFromCart('${escapeHTML(item.cartId)}')" aria-label="حذف ${escapeHTML(item.name)}" title="حذف المنتج"><i class="fa-solid fa-trash"></i></button>
+    </div>`).join("");
+}
+
+function openCart(){document.getElementById("cartOverlay").classList.add("active");document.getElementById("cartDrawer").classList.add("active");document.body.style.overflow="hidden"}
+function closeCart(){
+  document.getElementById("cartOverlay").classList.remove("active");document.getElementById("cartDrawer").classList.remove("active");
+  if(!document.getElementById("modalOverlay").classList.contains("active"))document.body.style.overflow="";
+}
+function showModal(content){document.getElementById("modalContent").innerHTML=content;document.getElementById("modalOverlay").classList.add("active");document.body.style.overflow="hidden"}
+function closeModal(){document.getElementById("modalOverlay").classList.remove("active");if(!document.getElementById("cartDrawer").classList.contains("active"))document.body.style.overflow=""}
+function modalOutside(event){if(event.target.id==="modalOverlay")closeModal()}
+
+/* إرسال الطلب إلى السيرفر وحفظه في قاعدة البيانات */
+async function checkout(){
+  if(!cart.length){showToast("السلة فارغة. أضف منتجًا أولًا.");return}
+  if(!user.name||!user.name.trim()){closeCart();openProfile(true);showToast("أدخل اسمك أولًا لتسجيل الطلب.");return}
+
+  try{
+    const response=await fetch("/api/store/orders",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        customer:{name:user.name,discord:user.discord||""},
+        items:cart.map(i=>({productId:i.productId,quantity:Number(i.quantity)||1,amount:Number(i.price)||0}))
+      })
+    });
+    const result=await response.json();
+    if(!response.ok||result.success!==true)throw new Error(result.message||"تعذّر إرسال الطلب.");
+
+    const newOrder={
+      id:result.order.id,
+      date:new Date().toLocaleString("fr-FR"),
+      customer:{...user},
+      items:result.order.items.map(i=>({name:i.name,price:i.price,quantity:i.quantity,image:i.image})),
+      total:result.order.total,
+      status:result.order.status||"قيد المراجعة"
+    };
+    orders.unshift(newOrder);
+    cart=[];
+    saveStorage();
+    renderCart();
+    closeCart();
+
+    showModal(`
+      <div class="modal-header"><h2><i class="fa-solid fa-circle-check" style="color:#00d084"></i> تم إرسال الطلب بنجاح</h2><button class="close-btn" onclick="closeModal()" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="notice">تم حفظ طلبك في قاعدة بيانات السيرفر بنجاح وسيحفظ في لوحة إدارة المافيا.</div>
+      <div class="order-card"><h4>رقم الطلب: ${escapeHTML(newOrder.id)}</h4><p>العميل: ${escapeHTML(user.name)}</p><p>المجموع: ${money(newOrder.total)}</p><p>الحالة: ${escapeHTML(newOrder.status)}</p></div>
+      <button class="btn btn-primary" onclick="closeModal()">حسنًا</button>`);
+  }catch(err){
+    showToast("خطأ: "+err.message);
+  }
+}
+
+function openProfile(forceEdit=false){
+  showModal(`
+    <div class="modal-header"><h2><i class="fa-solid fa-user red"></i> الملف الشخصي</h2><button class="close-btn" onclick="closeModal()" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="notice">هذه البيانات تُستخدم لتسجيل طلبات المتجر باسمك في السيرفر.</div>
+    <form onsubmit="saveProfile(event)">
+      <div class="form-group"><label for="profileName">الاسم *</label><input id="profileName" name="name" required maxlength="80" value="${escapeHTML(user.name)}" placeholder="أدخل اسمك"></div>
+      <div class="form-group"><label for="profileDiscord">Discord (اختياري)</label><input id="profileDiscord" name="discord" maxlength="100" value="${escapeHTML(user.discord)}" placeholder="اسم Discord"></div>
+      <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> حفظ البيانات</button>
+    </form>`);
+  if(forceEdit)setTimeout(()=>document.getElementById("profileName")?.focus(),50);
+}
+function saveProfile(event){
+  event.preventDefault();const form=new FormData(event.target);
+  user={name:String(form.get("name")||"").trim(),discord:String(form.get("discord")||"").trim()};
+  if(!user.name){showToast("أدخل اسمًا صالحًا.");return}
+  saveStorage();closeModal();showToast("تم حفظ بيانات الملف الشخصي.");
+}
+function openOrders(){
+  const cards=orders.length?orders.map(order=>`
+    <div class="order-card"><h4>${escapeHTML(order.id)}</h4><p>التاريخ: ${escapeHTML(order.date)}</p><p>المجموع: ${money(order.total)}</p>
+    <p>المنتجات: ${(Array.isArray(order.items)?order.items:[]).map(item=>escapeHTML(item.name)+" × "+(Number(item.quantity)||1)).join("، ")}</p>
+    <span class="status">${escapeHTML(order.status)}</span></div>`).join(""):`<div class="empty"><i class="fa-solid fa-receipt"></i>لا توجد طلبات محفوظة.</div>`;
+}
+
+let toastTimer;
+function showToast(message){
+  const toast=document.getElementById("toast");if(!toast)return;
+  toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toast.classList.remove("show"),2700);
+}
+
+document.addEventListener("keydown",event=>{if(event.key==="Escape"){closeCart();closeModal()}});
+document.getElementById("year").textContent=new Date().getFullYear();
+let storeSessionReady=false;
+async function logoutStore(){
+  try{await fetch("/api/store/group-logout",{method:"POST",headers:{"Accept":"application/json"}})}catch{}
+  window.location.replace("/store-login.html");
+}
+async function initializeStoreAfterLogin(){
+  try{
+    const response=await fetch("/api/store/group-session",{cache:"no-store",headers:{"Accept":"application/json"}});
+    const result=await response.json();
+    if(!response.ok||!result.success||!result.group){window.location.replace("/store-login.html");return;}
+    storeSessionReady=true;
+    user={...(user&&typeof user==="object"?user:{}),name:String(result.group.name||"LOMBRA GROUP"),discord:""};
+    saveStorage();
+    const label=document.querySelector(".brand-sub");
+    if(label)label.textContent=(result.group.type||"GROUP")+" // "+(result.group.name||"AUTHORIZED");
+    renderProducts();renderCart();await loadProductsFromServer();
+    setInterval(()=>{if(storeSessionReady)loadProductsFromServer()},30000);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden&&storeSessionReady)loadProductsFromServer()});
+    window.addEventListener("focus",()=>{if(storeSessionReady)loadProductsFromServer()});
+  }catch(error){window.location.replace("/store-login.html");}
+}
+initializeStoreAfterLogin();
+window.addEventListener("load",()=>{setTimeout(()=>document.getElementById("intro")?.classList.add("hide"),3600)});
+</script>
+</body>
+</html>

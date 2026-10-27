@@ -1,0 +1,39 @@
+.env
+.env.*
+!.env.example
+node_modules/
+lombra.db
+lombra.db-*
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+# Secrets and local databases
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# SQLite databases and backups
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.backup*
+
+# Local data and uploaded files
+data/
+uploads/
+lombra.db.backup*
+lombra.db.backup*
+lombra.db.backup*
+create-boss.cjs
+find-boss.js
+fix-boss-password.js
+fix-lombra-boss-role.js
+patch-member-list.js
+reset-lombra.cjs
+data/
